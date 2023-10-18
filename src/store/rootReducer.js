@@ -6,6 +6,7 @@ import orderSlice from './order/orderSlice'
 import adminSlice from './admin/adminSlice'
 import formOrderValidationSlice from './formOrderValidation/formOrderValidation'
 import ratingsSlice from './ratings/ratingsSlice'
+import profileSlice from './profile/profileSlice'
 
 export const rootReducer = combineReducers({
   calculator: calculatorSlice,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   admin: adminSlice,
   formOrderValidation: formOrderValidationSlice,
   ratings: ratingsSlice,
+  profile: profileSlice,
 })

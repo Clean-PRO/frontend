@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ProfileForm from '../../components/ProfileForm/ProfileForm'
 import './ProfilePage.scss'
 import OrderCard from '../../components/OrderCard/OrderCard'
@@ -7,26 +7,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { orderSelectors } from '../../store/order/orderSelectors'
 import { getUserOrders } from '../../store/order/orderActions'
 import Button from '../../components/Button/Button'
-import { logOut } from '../../store/auth/authActions'
-import { useNavigate } from 'react-router-dom'
-import { ROUTES } from '../../constants/constants'
+import no_order from '../../assets/images/no-orders.svg'
+import { HashLink } from 'react-router-hash-link'
+import { handleProfile, handleOrder } from '../../store/profile/profileSlice'
+import { profileSelectors } from '../../store/profile/profileSelectors'
 
 export default function Profile() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const userOrders = useSelector(orderSelectors.getAllOrders)
-
-  const [isProfileFormActive, setIsProfileFormActive] = useState(false)
-  const toggleFormActive = () => setIsProfileFormActive(!isProfileFormActive)
+  const getPage = useSelector(profileSelectors.getPage)
 
   useEffect(() => {
     dispatch(getUserOrders())
   }, [dispatch])
-
-  function handleLogout() {
-    dispatch(logOut())
-    navigate(ROUTES.HOME)
-  }
 
   return (
     <div className="profile">
@@ -34,25 +27,30 @@ export default function Profile() {
         <h1 className="profile__title">Профиль</h1>
         <nav className="profile__menu">
           <button
-            className={`profile__menu-button ${isProfileFormActive ? '' : 'profile__menu-button_active'}`}
-            onClick={toggleFormActive}>
+            className={`profile__menu-button ${getPage === 'profileForm' ? '' : 'profile__menu-button_active'}`}
+            onClick={() => dispatch(handleOrder())}>
             Мои уборки
           </button>
           <button
-            className={`profile__menu-button ${isProfileFormActive ? 'profile__menu-button_active' : ''}`}
-            onClick={toggleFormActive}>
+            className={`profile__menu-button ${getPage === 'profileOrders' ? '' : 'profile__menu-button_active'} `}
+            onClick={() => dispatch(handleProfile())}>
             Личные данные
           </button>
         </nav>
-        {isProfileFormActive ? (
-          <>
-            <ProfileForm />
-            <div style={{ width: '28.6rem', margin: '2rem 0' }}>
-              <Button buttonClassName="button" buttonText="Выйти из аккаунта" onClick={handleLogout} />
-            </div>
-          </>
-        ) : (
+        {getPage === 'profileForm' && <ProfileForm />}
+        {getPage === 'profileOrders' && (
           <div className="profile__cards">
+            {userOrders.length === 0 && (
+              <div className="profile__no-order-wrapper">
+                <img src={no_order} className="profile__no-oder" />{' '}
+                <p className="profile__text-no-order">У вас пока нет уборок, но это можно исправить</p>{' '}
+                <div style={{ width: '28.6rem' }}>
+                  <HashLink to="/#calculator" className="profile__link">
+                    <Button buttonClassName="button" buttonText="Заказать уборку" />
+                  </HashLink>
+                </div>
+              </div>
+            )}
             {userOrders?.map(order => (
               <OrderCard key={order.id} order={order} />
             ))}

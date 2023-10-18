@@ -6,6 +6,53 @@
   margin: 0 auto;
   justify-content: space-between;
   padding: 2.55rem 10rem;
+
+  &__profile-menu {
+    list-style: none;
+    display: none;
+    width: 18rem;
+    border-radius: 1.2rem;
+    border: 0.1rem $border-color solid;
+    position: absolute;
+    top: 5rem;
+    z-index: 1;
+    background-color: $background-color-main;
+    overflow: hidden;
+    padding: 0.4rem 0;
+  }
+
+  &__menu-list {
+    text-decoration: none;
+    color: $text-color-main;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: right;
+    height: 5.8rem;
+    position: relative;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    color: $text-color-main;
+    cursor: pointer;
+  }
+
+  &__list {
+    padding: 0.8rem 0 0.8rem 1.6rem;
+    cursor: pointer;
+    &:hover{
+      background-color: $list-color;
+    }
+  }
+}
+
+.header__nav:hover .header__profile-menu {
+  display: block;
 }
 
 .header__menu {
@@ -62,15 +109,10 @@
   margin-right: 0.8rem;
 }
 
-.header__profile {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-  text-decoration: none;
-  color: $text-color-main;
-}
-
 .header__profile-icon {
   display: block;
   margin-right: 0.8rem;
+  width: 25px;
+  height: 25px;
+  align-self: center;
 }
