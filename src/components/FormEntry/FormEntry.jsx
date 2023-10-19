@@ -20,7 +20,7 @@ function FormEntry() {
     reset,
     formState: { errors },
   } = useForm({
-    mode: 'onSubmit',
+    mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
@@ -91,11 +91,12 @@ function FormEntry() {
                   message: PATTERNS.EMAIL.message,
                 },
               }}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onBlur, onChange } }) => (
                 <InputField
                   key={`${viewForm}-email`}
                   type="email"
                   label="Почта"
+                  onBlur={onBlur}
                   onChange={onChange}
                   isValid={!getFieldState('email').invalid}
                   error={errors?.email}
@@ -111,11 +112,12 @@ function FormEntry() {
                     required: { value: true, message: 'Заполните все поля.' },
                     pattern: PATTERNS.PASSWORD,
                   }}
-                  render={({ field: { onChange } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <InputField
                       key={`${viewForm}-password`}
                       type="password"
                       label="Пароль"
+                      onBlur={onBlur}
                       onChange={onChange}
                       isValid={!getFieldState('password').invalid}
                       error={errors?.password}

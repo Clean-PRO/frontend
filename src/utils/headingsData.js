@@ -9,7 +9,7 @@ export const headings = [
   {
     id: 1,
     title: 'Новые',
-    count: '99',
+    count: '',
     handleClick: handleClickNew(),
     handleTab: 'new',
   },
@@ -30,7 +30,7 @@ export const headings = [
   {
     id: 4,
     title: 'Отмененные',
-    count: '7',
+    count: '',
     handleClick: handleClickСancelled(),
     handleTab: 'cancelled',
   },

@@ -7,18 +7,19 @@
 
   &__password {
     margin-top: 1.6rem;
-  }
-  &__password::before {
-    content: '';
-    position: absolute;
-    display: inline;
-    z-index: 2;
-    background-image: url('../../assets/images/visible-pass.svg');
-    bottom: 1.8rem;
-    right: 1.6rem;
-    width: 1.6rem;
-    height: 1.4rem;
-    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: inline;
+      z-index: 2;
+      background-image: url('../../assets/images/visible-pass.svg');
+      bottom: 1.8rem;
+      right: 1.6rem;
+      width: 1.6rem;
+      height: 1.4rem;
+      cursor: pointer;
+    }
   }
 }
 

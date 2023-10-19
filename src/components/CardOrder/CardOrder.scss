@@ -1,6 +1,7 @@
 @import '../../assets/styles/colors.scss';
 .wrapper {
   box-sizing: border-box;
+  cursor: pointer;
 }
 .card-order {
   background-color: $background-color-main;

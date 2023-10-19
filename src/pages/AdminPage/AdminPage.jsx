@@ -16,10 +16,10 @@ function AdminPage() {
     <>
       <section className="admin">
         <AsideAdmin />
-        {linkView === 'orders' ? <OfficeAdmin /> : null}
-        {linkView === 'staff' ? <CleanersAdmin /> : null}
-        {linkView === 'cleanerCard' ? <CleanerCard /> : null}
-        {linkView === 'newCleaner' ? <CleanerAdd /> : null}
+        {linkView === 'orders' && <OfficeAdmin />}
+        {linkView === 'staff' && <CleanersAdmin />}
+        {linkView === 'cleanerCard' && <CleanerCard />}
+        {linkView === 'newCleaner' && <CleanerAdd />}
         {linkView === 'statistics' && <Statistics />}
       </section>
       <Footer />

@@ -1,5 +1,11 @@
 export const initialState = {
   orders: [],
+
+  newOrders: [],
+  accepted: [],
+  finished: [],
+  cancelled: [],
+
   newOrder: null,
   repeatOrder: null,
   repeatedTotal: null,

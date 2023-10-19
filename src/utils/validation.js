@@ -1,6 +1,6 @@
 export const PATTERNS = {
   EMAIL: {
-    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+    value: /^(?!\.)[0-9A-Za-z\.]{5,50}@[a-zA-z]+\.[a-zA-z]+$/,
     message: 'Введите Email. Пример: example@example.ru',
   },
   PASSWORD: {

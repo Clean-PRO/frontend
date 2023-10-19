@@ -25,7 +25,7 @@ const adminSlice = createSlice({
       state.tab = 'current'
     },
     handleClickCompleted: state => {
-      state.tab = 'completed'
+      state.tab = 'finished'
     },
     handleClickСancelled: state => {
       state.tab = 'cancelled'
