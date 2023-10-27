@@ -1,16 +1,16 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-
-import App from '../App.jsx'
-import MainPage from '../pages/MainPage/MainPage.jsx'
-import AboutPage from '../pages/AboutPage/AboutPage.jsx'
-import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'
-import SigninPage from '../pages/SigninPage/SigninPage.jsx'
-import Page404 from '../pages/Page404/Page404.jsx'
-import PaymentPage from '../pages/PaymentPage/PaymentPage.jsx'
-import AdminPage from '../pages/AdminPage/AdminPage.jsx'
-
 import { ROUTES } from '../constants/constants.js'
 import RequireAuth from '../hocs/RequireAuth.jsx'
+
+const App = lazy(() => import('../App.jsx'))
+const MainPage = lazy(() => import('../pages/MainPage/MainPage.jsx'))
+const AboutPage = lazy(() => import('../pages/AboutPage/AboutPage.jsx'))
+const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage.jsx'))
+const SigninPage = lazy(() => import('../pages/SigninPage/SigninPage.jsx'))
+const PaymentPage = lazy(() => import('../pages/PaymentPage/PaymentPage.jsx'))
+const AdminPage = lazy(() => import('../pages/AdminPage/AdminPage.jsx'))
+const Page404 = lazy(() => import('../pages/Page404/Page404.jsx'))
 
 const router = createBrowserRouter([
   {
