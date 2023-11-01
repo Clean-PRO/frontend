@@ -43,31 +43,11 @@ function InputRadio({ legend, className }) {
           <input
             className="input-radio__input"
             type="radio"
-            id="input-radio5"
-            name="reason"
-            value="Не понравился клинер"
-          />
-          <label htmlFor="input-radio5">Не понравился клинер</label>
-        </div>
-        <div className="input-radio__item">
-          <input
-            className="input-radio__input"
-            type="radio"
             id="input-radio6"
             name="reason"
             value="Не могу изменить информацию о заказе"
           />
           <label htmlFor="input-radio6">Не могу изменить информацию о заказе</label>
-        </div>
-        <div className="input-radio__item">
-          <input
-            className="input-radio__input"
-            type="radio"
-            id="input-radio7"
-            name="reason"
-            value="ужен другой тип уборки"
-          />
-          <label htmlFor="input-radio7">Нужен другой тип уборки</label>
         </div>
       </div>
     </div>

@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom'
 import { PATTERNS } from '../../utils/validation'
 import { calculatorSelectors } from '../../store/calculator/calculatorSelectors'
 import { createOrder } from '../../store/order/orderActions'
+import { InputMask } from '@react-input/mask';
+import myMask from '../../utils/myPhoneMask'
 
 function OrderForm() {
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -172,7 +174,7 @@ function OrderForm() {
 
         {/* -------------------------------------PHONE--------------------------------- */}
         <div className="inputs_wrapper-field">
-          <InputField
+                   {/* <InputField
             isValid
             readOnly={!!userData?.phone}
             type="tel"
@@ -184,7 +186,39 @@ function OrderForm() {
               pattern: PATTERNS.PHONE,
             })}
             error={errors?.phone}
+          /> */}
+          {userData?.phone ? 
+          <InputField
+            isValid
+            readOnly={!!userData?.phone}
+            type="tel"
+            label="Телефон"
+            placeholder="+7 (999) 999-99-99"
+            value={myMask(userData?.phone) || ''}
+            {...register('phone', {
+              minLength: 10,
+              pattern: PATTERNS.PHONE,
+            })}
+            error={errors?.phone}
           />
+          :
+          <InputMask 
+          onClick={(e) => {e.target.value ? null:e.target.value = '+7 ('}}
+          isValid
+          readOnly={!!userData?.phone}
+          type="text"
+          label="Телефон"
+          placeholder="+7 (999) 999-99-99"
+          value={userData?.phone || ''}
+          {...register('phone', {
+            minLength: 10,
+            pattern: PATTERNS.PHONE,
+          })}
+          error={errors?.phone} 
+          separate component={InputField} mask="+7 (___) ___-__-__" replacement="_" 
+          // label="Label for custom component" 
+          />
+        }
         </div>
 
         {/* -------------------------------------ГОРОД--------------------------------- */}
