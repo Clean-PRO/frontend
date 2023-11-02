@@ -16,13 +16,13 @@ function TransferModal({ order, show, closeModal }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const form = e.target
     const token = getToken()
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
-    ordersAPI.changeDateTime(order, {
+    await ordersAPI.changeDateTime(order, {
       body: { cleaning_date: formJson.date, cleaning_time: formJson.time },
       token: token,
     })
