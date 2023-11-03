@@ -1,11 +1,12 @@
-export const customerStylesSelect = {
+export const customerStylesSelect = hasError => ({
   control: (styles, { isFocused }) => ({
     ...styles,
     borderRadius: '13px',
+    height: '4.6rem',
     boxSizing: 'border-box',
     fontSize: '1.6rem',
     boxShadow: isFocused ? '0px 0px 0px 2px rgba(129, 172, 229, 0.3)' : 'none',
-    border: isFocused ? '1px solid #81ACE5' : 'none',
+    border: isFocused ? '1px solid #81ACE5' : hasError ? '1px solid #ad0000' : '1px solid #d9d9d9',
   }),
   option: (styles, { isFocused, isSelected }) => {
     return {
@@ -32,4 +33,4 @@ export const customerStylesSelect = {
       overflow: 'hidden',
     }
   },
-}
+})
