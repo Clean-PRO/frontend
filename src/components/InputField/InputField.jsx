@@ -48,7 +48,7 @@ const InputField = forwardRef(
           ref={ref}
           {...rest}
         />
-        {error && <span className="form-entry__error">{error.message || 'Ошибка'}</span>}
+        {error && <span className="error-text">{error.message || 'Ошибка'}</span>}
       </div>
     )
   },
