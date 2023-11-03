@@ -133,11 +133,12 @@ function OrderForm() {
         {/* -------------------------------------USERNAME--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
-            isValid
+            isValid={!errors?.username}
             readOnly={!!userData?.username}
             label="Имя"
             value={userData?.username || ''}
             {...register('username', {
+              required,
               minLength: 2,
               maxLength: {
                 value: 60,
@@ -151,7 +152,7 @@ function OrderForm() {
         {/* -------------------------------------EMAIL--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
-            isValid
+            isValid={!errors?.email}
             readOnly={!!userData?.email}
             type="email"
             id="input-email"
@@ -159,6 +160,7 @@ function OrderForm() {
             placeholder="example@example.ru"
             value={userData?.email || ''}
             {...register('email', {
+              required,
               minLength: 5,
               maxLength: {
                 value: 50,
@@ -173,13 +175,14 @@ function OrderForm() {
         {/* -------------------------------------PHONE--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
-            isValid
+            isValid={!errors?.phone}
             readOnly={!!userData?.phone}
             type="tel"
             label="Телефон"
             placeholder="+7 (999) 999-99-99"
             value={userData?.phone || ''}
             {...register('phone', {
+              required,
               minLength: 10,
               pattern: PATTERNS.PHONE,
             })}
@@ -190,7 +193,7 @@ function OrderForm() {
         {/* -------------------------------------ГОРОД--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
-            isValid
+            isValid={!errors?.city}
             readOnly
             placeholder="Москва"
             value="Москва"
@@ -202,7 +205,7 @@ function OrderForm() {
         {/* -------------------------------------УЛИЦА--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
-            isValid
+            isValid={!errors?.street}
             label="Улица"
             value={repeatedOrder?.address?.street || userData?.address?.street || ''}
             {...register('street', {
@@ -219,7 +222,7 @@ function OrderForm() {
           {/* -------------------------------------ДОМ--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputField
-              isValid
+              isValid={!errors?.house}
               size="small"
               label="Дом"
               value={repeatedOrder?.address?.house || userData?.address?.house || ''}
@@ -240,7 +243,7 @@ function OrderForm() {
           {/* -------------------------------------КВАРТИРА--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputField
-              isValid
+              isValid={!errors?.apartment}
               type="number"
               size="small"
               label="Квартира"
@@ -262,7 +265,7 @@ function OrderForm() {
           {/* -------------------------------------ПОДЪЕЗД--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputField
-              isValid
+              isValid={!errors?.entrance}
               type="number"
               size="small"
               label="Подъезд"
@@ -284,7 +287,7 @@ function OrderForm() {
           {/* -------------------------------------ЭТАЖ--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputField
-              isValid
+              isValid={!errors?.floor}
               size="small"
               label="Этаж"
               value={repeatedOrder?.address?.floor || userData?.address?.floor || ''}
@@ -305,7 +308,7 @@ function OrderForm() {
           {/* -------------------------------------ДАТА--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputFieldDate
-              isValid
+              isValid={!errors?.cleaning_date && stateDate == true}
               size="small"
               focus
               label="Дата"
@@ -315,7 +318,7 @@ function OrderForm() {
               })}
             />
             {(errors?.cleaning_date || stateDate == false) && (
-              <span className="form-entry__error">{errors?.cleaning_date?.message || 'Выберите корректную дату'}</span>
+              <span className="error-text">{errors?.cleaning_date?.message || 'Выберите корректную дату'}</span>
             )}
           </div>
 
@@ -323,20 +326,19 @@ function OrderForm() {
           <div className="inputs_wrapper-field">
             <label>Время</label>
             <Select
-              styles={customerStylesSelect}
+              styles={customerStylesSelect(errors?.cleaning_time)}
               className="select-time select-time_style_border"
               classNamePrefix="select-time"
               ref={register('cleaning_time', {
                 required,
               })}
+              placeholder={''}
               options={TIME_OPTIONS}
               value={slotValue ? TIME_OPTIONS.find(x => x.value === slotValue) : slotValue}
               onChange={option => timeOnChange(option ? option.value : option)}
               {...restTimeField}
             />
-            {errors?.cleaning_time && (
-              <span className="form-entry__error">{errors?.cleaning_time?.message || 'Ошибка'}</span>
-            )}
+            {errors?.cleaning_time && <span className="error-text">{errors?.cleaning_time?.message || 'Ошибка'}</span>}
           </div>
         </div>
         <div>
@@ -351,7 +353,7 @@ function OrderForm() {
               },
             })}
           />
-          {errors?.comment && <span className="form-entry__error">{errors?.comment?.message || 'Ошибка'}</span>}
+          {errors?.comment && <span className="error-text">{errors?.comment?.message || 'Ошибка'}</span>}
         </div>
         <button type="submit" className="form-btn">
           Заказать
