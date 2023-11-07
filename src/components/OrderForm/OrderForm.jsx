@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom'
 import { PATTERNS } from '../../utils/validation'
 import { calculatorSelectors } from '../../store/calculator/calculatorSelectors'
 import { createOrder } from '../../store/order/orderActions'
+import { InputMask } from '@react-input/mask';
+import myMask from '../../utils/myPhoneMask'
 
 function OrderForm() {
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -174,19 +176,21 @@ function OrderForm() {
 
         {/* -------------------------------------PHONE--------------------------------- */}
         <div className="inputs_wrapper-field">
-          <InputField
+          <InputMask 
+            onClick={(e) => {e.target.value ? null:e.target.value = '+7 ('}}
             isValid={!errors?.phone}
             readOnly={!!userData?.phone}
-            type="tel"
+            type="text"
             label="Телефон"
             placeholder="+7 (999) 999-99-99"
-            value={userData?.phone || ''}
+            value={userData?.phone ? myMask(userData?.phone) || '' : userData?.phone || ''}
             {...register('phone', {
               required,
               minLength: 10,
               pattern: PATTERNS.PHONE,
             })}
-            error={errors?.phone}
+            error={errors?.phone} 
+            separate component={InputField} mask="+7 (___) ___-__-__" replacement="_" 
           />
         </div>
 

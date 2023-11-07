@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authSelectors } from '../../store/auth/authSelectors'
 import { updateUser } from '../../store/auth/authActions'
 import { PATTERNS } from '../../utils/validation'
+import { InputMask } from '@react-input/mask';
+import myMask from '../../utils/myPhoneMask'
 
 const ProfileForm = () => {
   const userData = useSelector(authSelectors.getUser)
@@ -50,15 +52,21 @@ const ProfileForm = () => {
             error={errors?.email}
             isValid={!getFieldState('email').invalid}
           />
-          <InputField
+
+          <InputMask
+          onClick={(e) => {e.target.value ? null:e.target.value = '+7 ('}}
+            isValid
+            // readOnly={!!userData?.phone}
+            type="text"
             label="Телефон"
-            value={userData?.phone || ''}
+            placeholder="+7 (999) 999-99-99"
+            value={userData?.phone ? myMask(userData?.phone) || '' : userData?.phone || ''}
             {...register('phone', {
+              minLength: 10,
               pattern: PATTERNS.PHONE,
-              required: 'Заполните поле телефон',
             })}
             error={errors?.phone}
-            isValid={!getFieldState('phone').invalid}
+            separate component={InputField} mask="+7 (___) ___-__-__" replacement="_" 
           />
         </div>
       </div>
