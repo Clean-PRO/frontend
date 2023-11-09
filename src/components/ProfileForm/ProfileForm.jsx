@@ -6,12 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authSelectors } from '../../store/auth/authSelectors'
 import { updateUser } from '../../store/auth/authActions'
 import { PATTERNS } from '../../utils/validation'
-import { InputMask } from '@react-input/mask';
+import { InputMask } from '@react-input/mask'
 import myMask from '../../utils/myPhoneMask'
+import Popup from '../Popup/Popup'
 
 const ProfileForm = () => {
-  const userData = useSelector(authSelectors.getUser)
   const dispatch = useDispatch()
+
+  const userUpdateStatus = useSelector(authSelectors.getUserUpdateStatus)
+  const userData = useSelector(authSelectors.getUser)
+
   const {
     register,
     handleSubmit,
@@ -54,9 +58,10 @@ const ProfileForm = () => {
           />
 
           <InputMask
-          onClick={(e) => {e.target.value ? null:e.target.value = '+7 ('}}
+            onClick={e => {
+              e.target.value ? null : (e.target.value = '+7 (')
+            }}
             isValid
-            // readOnly={!!userData?.phone}
             type="text"
             label="Телефон"
             placeholder="+7 (999) 999-99-99"
@@ -66,7 +71,10 @@ const ProfileForm = () => {
               pattern: PATTERNS.PHONE,
             })}
             error={errors?.phone}
-            separate component={InputField} mask="+7 (___) ___-__-__" replacement="_" 
+            separate
+            component={InputField}
+            mask="+7 (___) ___-__-__"
+            replacement="_"
           />
         </div>
       </div>
@@ -128,6 +136,12 @@ const ProfileForm = () => {
       <div className="profile-form__button-wrapper">
         <Button buttonClassName="button" buttonText="Сохранить изменения" />
       </div>
+      {userUpdateStatus === 'success' && (
+        <Popup content="Данные успешно сохранены" condition={userUpdateStatus === 'success'} />
+      )}
+      {userUpdateStatus === 'error' && (
+        <Popup error content="Произошла ошибка, данные не изменены." condition={userUpdateStatus === 'error'} />
+      )}
     </form>
   )
 }

@@ -1,5 +1,7 @@
 import { TOKEN_KEY } from './tokenActions'
 
+const BASE_URL = import.meta.env.MODE === 'development' ? 'http://localhost/api' : '/api'
+
 const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -8,11 +10,7 @@ const METHODS = {
   PATCH: 'PATCH',
 }
 
-export class FetchAPI {
-  static getURL = () => {
-    throw new Error('Method not implemented.')
-  }
-
+class FetchAPI {
   constructor(apiUrl) {
     this.API_URL = apiUrl
   }
@@ -21,85 +19,69 @@ export class FetchAPI {
     return this.API_URL
   }
 
-  get = async (url, options) => {
+  async get(url, options) {
     return await baseFetch(this.API_URL + url, METHODS.GET, options)
   }
 
-  post = async (url, options) => {
+  async post(url, options) {
     return await baseFetch(this.API_URL + url, METHODS.POST, options)
   }
 
-  delete = async url => {
+  async delete(url) {
     return await baseFetch(this.API_URL + url, METHODS.DELETE)
   }
 
-  put = async (url, options) => {
+  async put(url, options) {
     return await baseFetch(this.API_URL + url, METHODS.PUT, options)
   }
 
-  patch = async (url, options) => {
+  async patch(url, options) {
     return await baseFetch(this.API_URL + url, METHODS.PATCH, options)
   }
 }
 
 const baseFetch = async (url, method, options = {}) => {
   const { body = null, token = null } = options
-  let bodyFetch = JSON.stringify(body)
 
-  const optionsFetch =
-    token && body
-      ? {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token[TOKEN_KEY]}`,
-            'Access-Control-Allow-Credentials': true,
-          },
-          method,
-          body: bodyFetch,
-        }
-      : token && !body
-      ? {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token[TOKEN_KEY]}`,
-            'Access-Control-Allow-Credentials': true,
-          },
-          method,
-        }
-      : !token && body
-      ? {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method,
-          credentials: 'include',
-          body: bodyFetch,
-        }
-      : {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method,
-          credentials: 'include',
-        }
+  const headers = {
+    'Content-Type': 'application/json',
+  }
 
-  let result
-  const response = await fetch(url, optionsFetch)
+  if (token) {
+    headers.Authorization = `Token ${token[TOKEN_KEY]}`
+    headers['Access-Control-Allow-Credentials'] = true
+  }
+
+  const fetchOptions = {
+    method,
+    headers,
+  }
+
+  if (body !== null) {
+    fetchOptions.body = JSON.stringify(body)
+  }
+
+  if (token === null && body !== null) {
+    fetchOptions.credentials = 'include'
+  }
 
   try {
-    result = await response.json()
-  } catch (e) {
-    if (response.ok) {
-      result = 'ok'
+    const response = await fetch(url, fetchOptions)
+
+    if (response.status === 204) {
+      return {}
     }
-    console.error(e)
-  }
 
-  if (!response.ok) {
-    return Promise.reject(result.reason)
-  }
+    const result = await response.json()
 
-  return result
+    if (!response.ok) {
+      return Promise.reject(result)
+    }
+
+    return result
+  } catch (e) {
+    return Promise.reject(e)
+  }
 }
 
-export default new FetchAPI('http://localhost/api')
+export default new FetchAPI(BASE_URL)
