@@ -23,5 +23,5 @@ export const API_URL = {
   USERS: '/users/',
   ORDERS: '/orders/',
   SERVICES: '/services/',
-  TYPES: '/types/',
+  TYPES: '/cleaning-types/',
 }

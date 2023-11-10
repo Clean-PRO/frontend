@@ -1,6 +1,6 @@
 import { TOKEN_KEY } from './tokenActions'
 
-const BASE_URL = import.meta.env.MODE === 'development' ? 'http://localhost/api' : '/api'
+const BASE_URL = 'https://cleanpro.webtm.ru/api'
 
 const METHODS = {
   GET: 'GET',

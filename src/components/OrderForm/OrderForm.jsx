@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import { PATTERNS } from '../../utils/validation'
 import { calculatorSelectors } from '../../store/calculator/calculatorSelectors'
 import { createOrder } from '../../store/order/orderActions'
-import { InputMask } from '@react-input/mask';
+import { InputMask } from '@react-input/mask'
 import myMask from '../../utils/myPhoneMask'
 
 function OrderForm() {
@@ -62,7 +62,6 @@ function OrderForm() {
   const openConfirmEmail = async email => {
     try {
       const fetchCode = await requestCode(email)
-      console.log(fetchCode)
       setCode(fetchCode.confirm_code)
       setShowAuthModal(true)
     } catch (err) {
@@ -176,8 +175,10 @@ function OrderForm() {
 
         {/* -------------------------------------PHONE--------------------------------- */}
         <div className="inputs_wrapper-field">
-          <InputMask 
-            onClick={(e) => {e.target.value ? null:e.target.value = '+7 ('}}
+          <InputMask
+            onClick={e => {
+              e.target.value ? null : (e.target.value = '+7 (')
+            }}
             isValid={!errors?.phone}
             readOnly={!!userData?.phone}
             type="text"
@@ -189,8 +190,11 @@ function OrderForm() {
               minLength: 10,
               pattern: PATTERNS.PHONE,
             })}
-            error={errors?.phone} 
-            separate component={InputField} mask="+7 (___) ___-__-__" replacement="_" 
+            error={errors?.phone}
+            separate
+            component={InputField}
+            mask="+7 (___) ___-__-__"
+            replacement="_"
           />
         </div>
 
