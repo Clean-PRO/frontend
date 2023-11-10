@@ -1,0 +1,118 @@
+@import '../../assets/styles/colors.scss';
+@import '../../assets/styles/GlobalStyle.scss';
+
+.header {
+  width: 144rem;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 2.55rem 10rem;
+
+  &__profile-menu {
+    list-style: none;
+    display: none;
+    width: 18rem;
+    border-radius: 1.2rem;
+    border: 0.1rem $border-color solid;
+    position: absolute;
+    top: 5rem;
+    z-index: 1;
+    background-color: $background-color-main;
+    overflow: hidden;
+    padding: 0.4rem 0;
+  }
+
+  &__menu-list {
+    text-decoration: none;
+    color: $text-color-main;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: right;
+    height: 5.8rem;
+    position: relative;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    color: $text-color-main;
+    cursor: pointer;
+  }
+
+  &__list {
+    padding: 0.8rem 0 0.8rem 1.6rem;
+    cursor: pointer;
+    &:hover{
+      background-color: $list-color;
+    }
+  }
+}
+
+.header__nav:hover .header__profile-menu {
+  display: block;
+}
+
+.header__menu {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.header__links {
+  display: flex;
+  margin-left: 12rem;
+  align-items: center;
+  gap: 3.2rem;
+  list-style: none;
+}
+
+.header__link {
+  font-size: 2rem;
+  text-decoration: none;
+  color: $text-color-main;
+
+  &-active {
+    @extend .text-l-bold;
+    text-decoration: none;
+    color: $text-color-main;
+    padding-bottom: 1.6rem;
+    border-bottom: 0.2rem solid $color-primary;
+  }
+}
+
+.header__info {
+  display: flex;
+  margin-right: 3rem;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.header__phone {
+  margin-right: 3rem;
+  font-size: 2rem;
+  line-height: 2.6rem;
+}
+
+.header__signin {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  text-decoration: none;
+  color: $text-color-main;
+}
+
+.header__signin-icon {
+  display: block;
+  margin-right: 0.8rem;
+}
+
+.header__profile-icon {
+  display: block;
+  margin-right: 0.8rem;
+  width: 25px;
+  height: 25px;
+  align-self: center;
+}
