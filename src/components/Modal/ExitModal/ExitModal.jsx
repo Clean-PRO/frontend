@@ -7,12 +7,14 @@ import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 
 function ExitModal({ show, closeModal }) {
-  if (!show) return null
   const dispatch = useDispatch()
+
+  if (!show) return null
   return (
     <>
       {createPortal(
         <div className="modal">
+          <div onClick={() => closeModal} className="modal__overlay" />
           <div className="modal__wrapper">
             <p className="text-l">Вы уверены, что хотите выйти?</p>
             <Button

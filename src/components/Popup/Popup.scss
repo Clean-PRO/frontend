@@ -1,0 +1,42 @@
+@import '../../assets/styles/colors.scss';
+@import '../../assets/styles/GlobalStyle.scss';
+
+.popup {
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  z-index: 5;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+
+  &__box {
+    position: relative;
+    margin: 0 auto;
+    padding: 4.8rem 6rem;
+    z-index: 2;
+    width: 39rem;
+    min-height: 17rem;
+    border: 2px solid $border-color;
+    background-color: $background-color-main;
+    box-shadow: 4px 4px 16px rgba(3, 5, 24, 0.1);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    @extend .text-l;
+    text-align: center;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  visibility: hidden;
+}

@@ -4,14 +4,20 @@ import { useForm, Controller } from 'react-hook-form'
 import Button from '../Button/Button'
 import InputField from '../InputField/InputField'
 import { formEntrySelectors } from '../../store/formEntry/formEntrySelectors'
+import { authSelectors } from '../../store/auth/authSelectors'
 import './FormEntry.scss'
 import { registration, signInUser } from '../../store/auth/authActions'
 import { useEffect } from 'react'
 import { PATTERNS } from '../../utils/validation'
+import Popup from '../Popup/Popup'
 
 function FormEntry() {
-  const viewForm = useSelector(formEntrySelectors.getFormView)
   const dispatch = useDispatch()
+
+  const viewForm = useSelector(formEntrySelectors.getFormView)
+  const signUpError = useSelector(authSelectors.getSignUpError)
+  const signInError = useSelector(authSelectors.getSignInError)
+
   const {
     control,
     handleSubmit,
@@ -167,6 +173,8 @@ function FormEntry() {
           )}
         </div>
       </form>
+      {signUpError && <Popup error content={signUpError?.email?.[0]} condition={signUpError} />}
+      {signInError && <Popup error content={signInError?.non_field_errors?.[0]} condition={signInError} />}
     </section>
   )
 }

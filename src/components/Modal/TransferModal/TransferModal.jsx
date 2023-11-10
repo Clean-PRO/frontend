@@ -32,7 +32,7 @@ function TransferModal({ order, show, closeModal }) {
     <>
       {createPortal(
         <section className="modal">
-          <div onClick={closeModal} className="modal__overlay"></div>
+          <div onClick={closeModal} className="modal__overlay" />
           <form onSubmit={handleSubmit} action="" className="modal__form">
             <ButtonClose closeModal={closeModal} />
             <div className="modal__content">

@@ -10,12 +10,9 @@ export const buildSignInUser = builder =>
       state.isAuth = true
       state.signInError = null
     })
-    .addCase(signInUser.rejected, state => {
+    .addCase(signInUser.rejected, (state, action) => {
       state.signInStatus = 'error'
-      state.signInError = 'Sorry, something went wrong'
-      if (state.signInError === 'User already in system') {
-        state.isAuth = true
-      }
+      state.signInError = action.payload
     })
 
 export const buildRegistration = builder =>
@@ -30,9 +27,9 @@ export const buildRegistration = builder =>
       state.signInError = null
       state.signUpError = null
     })
-    .addCase(registration.rejected, state => {
+    .addCase(registration.rejected, (state, action) => {
       state.signUpStatus = 'error'
-      state.signUpError = 'Sorry, something went wrong'
+      state.signUpError = action.payload
     })
 
 export const buildLogOut = builder =>

@@ -67,9 +67,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="header__list text-m" onClick={() => setShowExit(s => !s)}>
-                  <Link to="/" className="header__menu-list">
-                    Выход
-                  </Link>
+                  <p className="header__menu-list">Выход</p>
                   <ExitModal show={showExit} closeModal={() => setShowExit(false)} />
                 </li>
               </ul>
@@ -97,9 +95,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="header__list text-m" onClick={() => setShowExit(s => !s)}>
-                  <Link to="/" className="header__menu-list">
-                    Выход
-                  </Link>
+                  <p className="header__menu-list">Выход</p>
                   <ExitModal show={showExit} closeModal={() => setShowExit(false)} />
                 </li>
               </ul>
