@@ -20,6 +20,10 @@ export const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
+    resetUserStatus: state => {
+      state.userUpdateStatus = null
+      state.userUpdateError = null
+    },
   },
   extraReducers: builder => {
     buildSignInUser(builder)
@@ -30,6 +34,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setIsAuth, resetSignInError, resetSignUpError, setUser } = authSlice.actions
+export const { setIsAuth, resetSignInError, resetSignUpError, setUser, resetUserStatus } = authSlice.actions
 
 export default authSlice.reducer

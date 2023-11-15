@@ -19,9 +19,9 @@ function CancelModal({ order, show, closeModal }) {
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
     const token = getToken()
-    await ordersAPI.cancel(order, {
-      body: { comment_cancel: formJson.text || formJson.reason },
-      token: token,
+    await ordersAPI.updateOrder(order, token, {
+      comment_cancel: formJson.text || formJson.reason,
+      order_status: 'cancelled',
     })
     dispatch(getUserOrders())
     closeModal()

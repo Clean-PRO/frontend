@@ -16,7 +16,8 @@ export const getUserOrders = createAsyncThunk('order/orders', async (_, { reject
 
 export const createOrder = createAsyncThunk('order/newOrder', async (body, { dispatch, getState, rejectWithValue }) => {
   try {
-    const response = await ordersAPI.createOrder(body)
+    const token = getToken()
+    const response = await ordersAPI.createOrder(token, body)
     if (response) {
       const state = getState()
       dispatch(resetRooms())

@@ -2,10 +2,11 @@
 
 .footer {
   background-color: $background-color-secondary;
+  min-width: 144rem;
 
   &__container {
     display: flex;
-    width: 144rem;
+    max-width: 144rem;
     padding: 8rem 10rem;
     gap: 3.2rem;
     margin: 0 auto;

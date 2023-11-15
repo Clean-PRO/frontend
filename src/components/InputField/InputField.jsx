@@ -1,5 +1,5 @@
 import './InputField.scss'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
 
 const InputField = forwardRef(
   (
@@ -11,25 +11,14 @@ const InputField = forwardRef(
       error = null,
       label,
       name,
-      onChange,
       isValid,
       classNameModal,
-      value,
       ...rest
     },
     ref,
   ) => {
     function handleFocus(e) {
       if (focus) e.target.setAttribute('type', 'date')
-    }
-    const [myValue, setMyValue] = useState(value)
-    useEffect(() => {
-      setMyValue(value)
-    }, [value])
-
-    const handleCange = e => {
-      setMyValue(e.target.value)
-      onChange(e)
     }
 
     return (
@@ -43,8 +32,6 @@ const InputField = forwardRef(
           placeholder={placeholder}
           type={type}
           onFocus={e => handleFocus(e)}
-          onChange={handleCange}
-          value={myValue || ''}
           ref={ref}
           {...rest}
         />

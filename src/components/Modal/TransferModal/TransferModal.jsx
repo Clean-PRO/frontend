@@ -19,10 +19,7 @@ function TransferModal({ order, show, closeModal }) {
     const token = getToken()
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
-    await ordersAPI.changeDateTime(order, {
-      body: { cleaning_date: formJson.date, cleaning_time: formJson.time },
-      token: token,
-    })
+    await ordersAPI.updateOrder(order, token, { cleaning_date: formJson.date, cleaning_time: formJson.time })
     dispatch(getUserOrders())
     closeModal()
   }

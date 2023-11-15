@@ -21,7 +21,20 @@ import { createOrder } from '../../store/order/orderActions'
 import { InputMask } from '@react-input/mask'
 import myMask from '../../utils/myPhoneMask'
 
+const defaults = {
+  username: '',
+  email: '',
+  phone: '',
+  city: 'Москва',
+  street: '',
+  house: '',
+  apartment: '',
+  entrance: '',
+  floor: '',
+}
+
 function OrderForm() {
+  const dispatch = useDispatch()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [code, setCode] = useState('')
 
@@ -36,8 +49,6 @@ function OrderForm() {
   const rooms = useSelector(calculatorSelectors.getRooms)
   const toilets = useSelector(calculatorSelectors.getToilets)
 
-  const dispatch = useDispatch()
-
   const {
     control,
     reset,
@@ -46,7 +57,26 @@ function OrderForm() {
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
+    defaultValues: defaults,
   })
+
+  useEffect(() => {
+    if (userData) {
+      reset({
+        username: userData?.username,
+        email: userData?.email,
+        phone: myMask(userData?.phone),
+        street: userData?.address?.street,
+        house: repeatedOrder?.address?.house || userData?.address?.house,
+        apartment: repeatedOrder?.address?.apartment || userData?.address?.apartment,
+        entrance: repeatedOrder?.address?.entrance || userData?.address?.entrance,
+        floor: repeatedOrder?.address?.floor || userData?.address?.floor,
+      })
+    }
+    if (!userData && !repeatedOrder) {
+      reset(defaults)
+    }
+  }, [userData, repeatedOrder, reset])
 
   const required = 'Обязательное поле'
 
@@ -137,7 +167,6 @@ function OrderForm() {
             isValid={!errors?.username}
             readOnly={!!userData?.username}
             label="Имя"
-            value={userData?.username || ''}
             {...register('username', {
               required,
               minLength: 2,
@@ -159,7 +188,6 @@ function OrderForm() {
             id="input-email"
             label="E-mail"
             placeholder="example@example.ru"
-            value={userData?.email || ''}
             {...register('email', {
               required,
               minLength: 5,
@@ -184,7 +212,6 @@ function OrderForm() {
             type="text"
             label="Телефон"
             placeholder="+7 (999) 999-99-99"
-            value={userData?.phone ? myMask(userData?.phone) || '' : userData?.phone || ''}
             {...register('phone', {
               required,
               minLength: 10,
@@ -197,14 +224,12 @@ function OrderForm() {
             replacement="_"
           />
         </div>
-
         {/* -------------------------------------ГОРОД--------------------------------- */}
         <div className="inputs_wrapper-field">
           <InputField
             isValid={!errors?.city}
             readOnly
             placeholder="Москва"
-            value="Москва"
             label="Город"
             {...register('city', {})}
             error={errors?.city}
@@ -215,7 +240,6 @@ function OrderForm() {
           <InputField
             isValid={!errors?.street}
             label="Улица"
-            value={repeatedOrder?.address?.street || userData?.address?.street || ''}
             {...register('street', {
               required,
               maxLength: {
@@ -233,7 +257,6 @@ function OrderForm() {
               isValid={!errors?.house}
               size="small"
               label="Дом"
-              value={repeatedOrder?.address?.house || userData?.address?.house || ''}
               {...register('house', {
                 required,
                 pattern: {
@@ -255,7 +278,6 @@ function OrderForm() {
               type="number"
               size="small"
               label="Квартира"
-              value={repeatedOrder?.address?.apartment || userData?.address?.apartment || ''}
               {...register('apartment', {
                 required,
                 max: {
@@ -277,7 +299,6 @@ function OrderForm() {
               type="number"
               size="small"
               label="Подъезд"
-              value={repeatedOrder?.address?.entrance || userData?.address?.entrance || ''}
               {...register('entrance', {
                 required,
                 max: {
@@ -298,7 +319,6 @@ function OrderForm() {
               isValid={!errors?.floor}
               size="small"
               label="Этаж"
-              value={repeatedOrder?.address?.floor || userData?.address?.floor || ''}
               {...register('floor', {
                 required,
                 max: {
