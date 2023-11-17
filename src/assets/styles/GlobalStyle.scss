@@ -308,7 +308,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 input[type='date']:before {
-  background: url('src/assets/images/calendar.svg') center no-repeat;
+  background: url('../../assets/images/calendar.svg') center no-repeat;
   display: block;
   content: '';
   width: 15px;
