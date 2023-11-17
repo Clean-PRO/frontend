@@ -7,7 +7,7 @@ $banner-width: 136rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 6rem auto 12rem;
+  margin: 15.1rem auto 12rem;
 
   img {
     width: 136rem;
@@ -17,7 +17,7 @@ $banner-width: 136rem;
 
 .banner-text {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   left: calc(($container-width - $banner-width) / 2 + 6rem);
   color: #163b6c;
   display: flex;

@@ -1,6 +1,7 @@
 import './CleanerSlide.scss'
 import calcCleaningQuantity from '../../utils/calcCleaningQuantity'
 import { Link } from 'react-router-dom'
+import star from '../../assets/images/star.svg'
 
 function CleanerSlide({ slide }) {
   const { name, mark, image, quantity } = slide
@@ -10,7 +11,7 @@ function CleanerSlide({ slide }) {
         <p className="slide__title-name">{name}</p>
         <div className="slide__rating">
           <p className="slide__mark">{mark}</p>
-          <img className="slide__star" src="./src/assets/images/star.svg" alt="" />
+          <img className="slide__star" src={star} alt="" />
         </div>
       </div>
       <img className="slide__img" src={image} alt={name} />

@@ -67,28 +67,37 @@ function FormEntry() {
         <div className="form-entry__content">
           {viewForm === 'registration' && (
             <div className="form-entry__wrapper-title">
-              <p className="form-entry__title form-entry__title_active">Регистрация</p>
-              <p
-                onClick={() => {
-                  handleEntry()
-                  clearErrors()
-                }}
-                className="form-entry__title">
-                Вход
-              </p>
+              <div className="form-entry__title-container">
+                <p className="form-entry__title form-entry__title_active">Регистрация</p>
+              </div>
+              <div className="form-entry__title-container">
+                <p
+                  onClick={() => {
+                    handleEntry()
+                    clearErrors()
+                  }}
+                  className="form-entry__title">
+                  Вход
+                </p>
+              </div>
             </div>
           )}
           {viewForm === 'entry' && (
             <div className="form-entry__wrapper-title">
-              <p
-                onClick={() => {
-                  handleRegistration()
-                  clearErrors()
-                }}
-                className="form-entry__title ">
-                Регистрация
-              </p>
-              <p className="form-entry__title form-entry__title_active">Вход</p>
+              <div className="form-entry__title-container">
+                <p
+                  onClick={() => {
+                    handleRegistration()
+                    clearErrors()
+                  }}
+                  className="form-entry__title ">
+                  Регистрация
+                </p>
+              </div>
+
+              <div className="form-entry__title-container">
+                <p className="form-entry__title form-entry__title_active">Вход</p>
+              </div>
             </div>
           )}
           {viewForm === 'recovery' && <p className="form-entry__title-recovery">Восстановление пароля</p>}

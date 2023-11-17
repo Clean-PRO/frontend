@@ -275,7 +275,6 @@ function OrderForm() {
           <div className="inputs_wrapper-field">
             <InputField
               isValid={!errors?.apartment}
-              type="number"
               size="small"
               label="Квартира"
               {...register('apartment', {
@@ -296,7 +295,6 @@ function OrderForm() {
           <div className="inputs_wrapper-field">
             <InputField
               isValid={!errors?.entrance}
-              type="number"
               size="small"
               label="Подъезд"
               {...register('entrance', {
@@ -362,6 +360,9 @@ function OrderForm() {
               })}
               placeholder={''}
               options={TIME_OPTIONS}
+              components={{
+                IndicatorSeparator: () => null,
+              }}
               value={slotValue ? TIME_OPTIONS.find(x => x.value === slotValue) : slotValue}
               onChange={option => timeOnChange(option ? option.value : option)}
               {...restTimeField}

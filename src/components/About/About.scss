@@ -1,6 +1,11 @@
 .about {
-  padding: 6rem 0 12rem 0;
+  padding: 6rem 0 12rem;
 
+  &__more {
+    padding-top: 6rem;
+    display: flex;
+    justify-content: space-between;
+  }
   &__container-statistics {
     display: grid;
     grid-template-columns: 1fr repeat(3, minmax(8rem, 18rem));

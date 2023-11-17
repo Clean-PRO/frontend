@@ -44,7 +44,7 @@
   &__rating:after {
     content: '';
     display: inline-block;
-    background: url(../../assets/images/star.png) center no-repeat;
+    background: url('src/assets/images/star.svg') center no-repeat;
     width: 1.6rem;
     height: 1.6rem;
     margin-left: 0.4rem;

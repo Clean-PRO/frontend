@@ -1,3 +1,5 @@
+@import '../../assets/styles/colors.scss';
+
 .swiper-slide {
   margin-bottom: 0;
 }
@@ -13,7 +15,6 @@
 .swiper-button-prev {
   display: none;
 }
-@import '../../assets/styles/colors.scss';
 
 .button-nav-swiper {
   display: flex;
@@ -64,6 +65,8 @@
   }
   &__rating {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__mark {
     padding: 0 0.45rem 0 0;

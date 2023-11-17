@@ -2,6 +2,10 @@ import Logo from '../Logo/Logo'
 import './About.scss'
 
 import AboutMore from '../AboutMore/AboutMore'
+import calcIcon from '../../assets/images/calc-rub-about.svg'
+import profsIcon from '../../assets/images/profs-about.svg'
+import warrantyIcon from '../../assets/images/warranty-about.svg'
+import choiceIcon from '../../assets/images/choice-about.svg'
 
 function About() {
   return (
@@ -48,22 +52,22 @@ function About() {
           <AboutMore
             title="Калькулятор стоимости"
             subTitle="Узнайте полную стоимость услуг перед&nbsp;оплатой"
-            src="./src/assets/images/calc-rub-about.svg"
+            src={calcIcon}
           />
           <AboutMore
             title="Опытные профессионалы"
             subTitle="Отбираем наши сотрудников по&nbsp;какой нибудь системе"
-            src="./src/assets/images/profs-about.svg"
+            src={profsIcon}
           />
           <AboutMore
             title="Без сюрпризов"
             subTitle="Обосновать удобство предоплаты, цена после&nbsp;уборки не&nbsp;изменится"
-            src="./src/assets/images/warranty-about.svg"
+            src={warrantyIcon}
           />
           <AboutMore
             title="Выбор клинера"
             subTitle="Выберите клинера, который уже&nbsp;знает что&nbsp;как"
-            src="./src/assets/images/choice-about.svg"
+            src={choiceIcon}
           />
         </div>
       </div>

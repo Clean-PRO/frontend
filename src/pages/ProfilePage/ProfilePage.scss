@@ -2,8 +2,8 @@
 
 .profile {
   &__content {
-    width: 144rem;
-    margin: 0 auto;
+    max-width: 144rem;
+    margin: 9.1rem auto;
     padding: 6rem 10rem;
     min-height: calc(100vh - 44.8rem - 9.1rem);
   }
@@ -21,7 +21,7 @@
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   &__no-oder {
     width: 358px;
     height: 191px;
@@ -40,7 +40,7 @@
   &__link {
     text-decoration: none;
   }
-  
+
   &__menu {
     margin-bottom: 3.2rem;
 
@@ -55,7 +55,7 @@
       background-color: $background-color-main;
 
       &:first-child {
-        margin-right: 1.6rem;
+        margin-right: 3.2rem;
       }
 
       &_active {

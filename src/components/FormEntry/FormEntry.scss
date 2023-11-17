@@ -19,16 +19,23 @@
   }
   &__wrapper-title {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 2.8rem;
+    gap: 1.6rem;
+  }
+  &__title-container {
+    width: 14.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__title {
-    display: flex;
-    align-self: center;
     font-size: 2rem;
     line-height: 2.6rem;
     padding: 1.6rem 0;
     cursor: pointer;
+    border-bottom: 0.2rem solid $background-color-secondary;
   }
   &__title-recovery {
     display: flex;

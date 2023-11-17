@@ -31,7 +31,7 @@ form {
   :focus,
   :active {
     border: 1px solid $border-color;
-    border-color: $border-color-active;
+    border-color: $border-color-hover;
   }
 
   &:disabled {
@@ -58,7 +58,7 @@ form {
   :focus,
   :active {
     border: 1px solid $border-color;
-    border-color: $border-color-active;
+    border-color: $border-color-hover;
   }
 
   &:disabled {

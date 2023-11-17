@@ -65,6 +65,8 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+  color: $text-color-main;
 }
 
 p {
@@ -293,4 +295,26 @@ template {
 
 .error-text {
   color: $border-color-error;
+}
+
+input[type='date'] {
+  position: relative;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type='date']:before {
+  background: url('src/assets/images/calendar.svg') center no-repeat;
+  display: block;
+  content: '';
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 6px;
+  padding-right: 1.4rem;
 }
