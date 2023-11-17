@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetRooms, setCleanType } from '../../store/calculator/calculatorSlice'
+import { resetRooms, setCleanType, setTotal } from '../../store/calculator/calculatorSlice'
 import Logo from '../Logo/Logo'
 import './Footer.scss'
 import { calculatorSelectors } from '../../store/calculator/calculatorSelectors'
@@ -13,6 +13,7 @@ const Footer = () => {
   function handleClick(num) {
     dispatch(resetRooms())
     dispatch(setCleanType(num))
+    dispatch(setTotal(types.filter(card => card.id === num)[0]?.price))
   }
 
   return (
