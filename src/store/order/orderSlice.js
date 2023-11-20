@@ -24,6 +24,9 @@ const orderSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload
     },
+    setCountFilters: (state, action) => {
+      state.countFilters = action.payload
+    },
   },
   extraReducers: builder => {
     buildGetUserOrders(builder)
@@ -32,5 +35,6 @@ const orderSlice = createSlice({
   },
 })
 
-export const { setOrders, resetRepeatedOrder, setRepeatedTotal, setFiltred, setSearch } = orderSlice.actions
+export const { setOrders, resetRepeatedOrder, setRepeatedTotal, setFiltred, setSearch, setCountFilters } =
+  orderSlice.actions
 export default orderSlice.reducer

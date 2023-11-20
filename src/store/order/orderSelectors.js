@@ -3,6 +3,7 @@ const getRepeatedOrder = state => state.order.repeatOrder
 const getRepeatedTotal = state => state.order.repeatedTotal
 const getFiltred = state => state.order.filtred
 const getSearch = state => state.order.search
+const getCountFilters = state => state.order.countFilters
 
 export const orderSelectors = {
   getAllOrders,
@@ -10,4 +11,5 @@ export const orderSelectors = {
   getRepeatedTotal,
   getFiltred,
   getSearch,
+  getCountFilters,
 }

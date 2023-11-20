@@ -45,15 +45,15 @@ function OfficeAdmin() {
     let rowIndex = 2
 
     const workbook = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(workbook, sheet, 'Orders')
     filter.forEach(item => {
       const rowData = [
         item.user.username,
-        item.user.email,
         item.user.phone,
+        item.user.email,
         item.address.city,
         item.address.street,
         item.address.house,
+        item.address.apartment,
         item.address.entrance,
         item.address.floor,
         item.cleaning_type.title,
@@ -63,7 +63,7 @@ function OfficeAdmin() {
       XLSX.utils.sheet_add_aoa(sheet, [rowData], { origin: `A${rowIndex}` })
       rowIndex++
     })
-    XLSX.utils.book_append_sheet(workbook, sheet, 'Sheet')
+    XLSX.utils.book_append_sheet(workbook, sheet, 'Orders')
     XLSX.writeFile(workbook, 'Orders.xlsx')
   }
 

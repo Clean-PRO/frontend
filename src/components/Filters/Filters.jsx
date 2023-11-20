@@ -5,12 +5,36 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './Filters.scss'
 import { orderSelectors } from '../../store/order/orderSelectors'
-import { setFiltred, setSearch } from '../../store/order/orderSlice'
+import { setFiltred, setSearch, setCountFilters } from '../../store/order/orderSlice'
 import { adminSelectors } from '../../store/admin/adminSelectors'
 
 const Filters = ({ stateVisible }) => {
-  const { handleSubmit, onChange, register, reset } = useForm()
+  const { handleSubmit, register, reset, watch } = useForm()
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    watch(data => countFields(data))
+  }, [watch])
+
+  const countFields = watchedFields => {
+    let count = 0
+    for (const key in watchedFields) {
+      if (
+        watchedFields[key] !== undefined &&
+        watchedFields[key] !== '' &&
+        watchedFields[key].length !== 0 &&
+        watchedFields[key] !== false
+      ) {
+        if (Array.isArray(watchedFields[key])) {
+          count += watchedFields[key].length
+        } else {
+          count++
+        }
+      }
+    }
+    dispatch(setCountFilters(count))
+  }
 
   const linkView = useSelector(adminSelectors.getAdminTab)
   const orders = useSelector(orderSelectors.getAllOrders)
@@ -143,81 +167,38 @@ const Filters = ({ stateVisible }) => {
               <div className="filters__registration">
                 <p className="filters__title text-m-bold">Дата оформления</p>
                 <div className="filters__inputs">
-                  <InputFilters placeholder="c" {...register('dateOrderStart')} onChange={onChange} focus type="text" />
-                  <InputFilters placeholder="по" {...register('dateOrderEnd')} onChange={onChange} focus type="text" />
+                  <InputFilters placeholder="c" {...register('dateOrderStart')} focus type="text" />
+                  <InputFilters placeholder="по" {...register('dateOrderEnd')} focus type="text" />
                 </div>
               </div>
               <div className="filters__cleaning">
                 <p className="filters__title text-m-bold">Дата уборки</p>
                 <div className="filters__inputs">
-                  <InputFilters
-                    placeholder="c"
-                    {...register('dateCliningStart')}
-                    onChange={onChange}
-                    focus
-                    type="text"
-                  />
-                  <InputFilters
-                    placeholder="по"
-                    {...register('dateCliningEnd')}
-                    onChange={onChange}
-                    focus
-                    type="text"
-                  />
+                  <InputFilters placeholder="c" {...register('dateCliningStart')} focus type="text" />
+                  <InputFilters placeholder="по" {...register('dateCliningEnd')} focus type="text" />
                 </div>
               </div>
             </div>
             <div className="filters__services">
               <p className="filters__title text-m-bold">Вид услуги</p>
               <div className="filters__checkbox">
-                <Checkbox
-                  label="Поддерживающая"
-                  value="Поддерживающая"
-                  {...register('cleaningType')}
-                  onChange={onChange}
-                />
-                <Checkbox label="Генеральная" value="Генеральная" {...register('cleaningType')} onChange={onChange} />
-                <Checkbox
-                  label="После ремонта"
-                  value="После ремонта"
-                  {...register('cleaningType')}
-                  onChange={onChange}
-                />
-                <Checkbox
-                  label="После праздника"
-                  value="После праздника"
-                  {...register('cleaningType')}
-                  onChange={onChange}
-                />
-                <Checkbox label="Окна" value="Окна" {...register('cleaningType')} onChange={onChange} />
+                <Checkbox label="Поддерживающая" value="Поддерживающая" {...register('cleaningType')} />
+                <Checkbox label="Генеральная" value="Генеральная" {...register('cleaningType')} />
+                <Checkbox label="После ремонта" value="После ремонта" {...register('cleaningType')} />
+                <Checkbox label="После праздника" value="После праздника" {...register('cleaningType')} />
+                <Checkbox label="Окна" value="Окна" {...register('cleaningType')} />
               </div>
             </div>
             <div className="filters__cancelled">
               <p className="filters__title text-m-bold">Причина отмены</p>
               <div className="filters__checkbox">
-                <Checkbox
-                  label="Изменились планы"
-                  value="Изменились планы"
-                  {...register('cancell')}
-                  onChange={onChange}
-                />
-                <Checkbox
-                  label="Сделали уборку сами"
-                  value="Сделали уборку сами"
-                  {...register('cancell')}
-                  onChange={onChange}
-                />
-                <Checkbox
-                  label="Нашли другого клинера"
-                  value="Нашли другого клинера"
-                  {...register('cancell')}
-                  onChange={onChange}
-                />
+                <Checkbox label="Изменились планы" value="Изменились планы" {...register('cancell')} />
+                <Checkbox label="Сделали уборку сами" value="Сделали уборку сами" {...register('cancell')} />
+                <Checkbox label="Нашли другого клинера" value="Нашли другого клинера" {...register('cancell')} />
                 <Checkbox
                   label="Не могу изменить информацию о заказе"
                   value="Не могу изменить информацию о заказе"
                   {...register('cancell')}
-                  onChange={onChange}
                 />
               </div>
             </div>
@@ -225,13 +206,13 @@ const Filters = ({ stateVisible }) => {
               <div className="filters__price">
                 <p className="filters__title text-m-bold">Стоимость</p>
                 <div className="filters__inputs">
-                  <InputFilters placeholder="от" {...register('coastStart')} onChange={onChange} type="number" />
-                  <InputFilters placeholder="до" {...register('coastEnd')} onChange={onChange} type="number" />
+                  <InputFilters placeholder="от" {...register('coastStart')} type="number" />
+                  <InputFilters placeholder="до" {...register('coastEnd')} type="number" />
                 </div>
               </div>
               <div className="filters__extra">
                 <p className="filters__title text-m-bold">Дополнительные услуги</p>
-                <Checkbox {...register('extra')} label="Есть" onChange={onChange} value="false" />
+                <Checkbox {...register('extra')} label="Есть" value="false" />
               </div>
             </div>
           </div>
