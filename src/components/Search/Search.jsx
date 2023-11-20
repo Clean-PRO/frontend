@@ -1,30 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
 import './Search.scss'
 import { orderSelectors } from '../../store/order/orderSelectors'
 import { setFiltred } from '../../store/order/orderSlice'
 import { setSearch } from '../../store/order/orderSlice'
-import { adminSelectors } from '../../store/admin/adminSelectors'
+import { useForm } from 'react-hook-form'
 
 function Search() {
   const dispatch = useDispatch()
-  const { handleSubmit, onChange, register, reset } = useForm()
+  const { handleSubmit, onChange, register } = useForm()
   const userOrders = useSelector(orderSelectors.getAllOrders)
-  const linkView = useSelector(adminSelectors.getAdminTab)
-
-  useEffect(() => {
-    reset({
-      searchText: '',
-    })
-  }, [reset, linkView])
-
-  function filterOrders(data) {
-    dispatch(setFiltred(userOrders.filter(order => order.id == data.searchText)))
-  }
 
   const onSubmit = data => {
-    filterOrders(data)
+    dispatch(setFiltred(userOrders.filter(order => order.id == data.searchText)))
     dispatch(setSearch(true))
   }
 

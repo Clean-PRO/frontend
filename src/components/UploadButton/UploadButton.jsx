@@ -1,8 +1,8 @@
 import './UploadButton.scss'
 
-function UploadButton({ text }) {
+function UploadButton({ text, onClick }) {
   return (
-    <button type="text" className="upload text-m">
+    <button type="text" className="upload text-m" onClick={onClick}>
       {text}
     </button>
   )
