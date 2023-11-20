@@ -3,14 +3,15 @@ $banner-width: 136rem;
 
 .banner {
   position: relative;
-  width: $container-width;
+  max-width: $container-width;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 15.1rem auto 12rem;
 
   img {
-    width: 136rem;
+    padding: 0 4rem;
+    width: 100%;
     border-radius: 20px;
   }
 }
@@ -18,7 +19,7 @@ $banner-width: 136rem;
 .banner-text {
   position: absolute;
   z-index: 1;
-  left: calc(($container-width - $banner-width) / 2 + 6rem);
+  left: 10rem;
   color: #163b6c;
   display: flex;
   flex-direction: column;

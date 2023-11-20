@@ -1,10 +1,15 @@
 @import '../../assets/styles/colors.scss';
 
 .calculator {
-  background-color: $background-color-secondary;
-  min-width: 144rem;
+  position: relative;
 
-  margin: 0 auto;
+  &__background {
+    background-color: $background-color-secondary;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
 
   &__container {
     max-width: 144rem;
@@ -15,11 +20,11 @@
     justify-content: center;
     align-items: flex-start;
     gap: 6rem;
-
     padding: 7.2rem 10rem;
   }
 
   &__wrapper {
+    max-width: 124rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -29,12 +34,11 @@
   &__cleaning-type-container {
     display: flex;
     flex-direction: column;
-    max-width: 81.6rem;
     gap: 3.2rem;
   }
 
   &__form-wrapper {
-    width: 39.2rem;
+    max-width: 39.2rem;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;

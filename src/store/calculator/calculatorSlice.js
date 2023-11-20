@@ -48,6 +48,8 @@ const calculatorSlice = createSlice({
     resetRooms: state => {
       state.roomsAmount = initialState.roomsAmount
       state.toiletsAmount = initialState.toiletsAmount
+      state.windowsAmount = initialState.windowsAmount
+      state.isPanoramic = false
       state.extra.map(extra => (extra.amount = 0))
     },
     safeOrderForm: (state, action) => {

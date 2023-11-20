@@ -25,9 +25,13 @@ function AboutPage() {
   return (
     <div className="about-page">
       <div className="about-page__wrapper">
-        <h2 id="about">О компании</h2>
+        <h2 className="bold" id="about">
+          О компании
+        </h2>
         <About />
-        <h2 id="cleaners">Наши клинеры</h2>
+        <h2 className="bold" id="cleaners">
+          Наши клинеры
+        </h2>
         <CleanersList />
       </div>
       <Comments />

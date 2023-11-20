@@ -93,11 +93,12 @@ const ProfileForm = () => {
               onClick={e => {
                 e.target.value ? null : (e.target.value = '+7 (')
               }}
-              isValid
+              isValid={!getFieldState('phone').invalid}
               type="text"
               label="Телефон"
               placeholder="+7 (999) 999-99-99"
               {...register('phone', {
+                required: 'Укажите телефон.',
                 minLength: 10,
                 pattern: PATTERNS.PHONE,
               })}

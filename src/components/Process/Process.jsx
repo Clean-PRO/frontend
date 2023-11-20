@@ -5,7 +5,7 @@ import './Process.scss'
 function Process() {
   return (
     <div className="process">
-      <h2>4 простых шага для вашей уборки</h2>
+      <h2 className="bold">4 простых шага для вашей уборки</h2>
       <div className="process-cards">
         {processCards.map(card => (
           <ProcessCard key={card.id} title={card.title} content={card.content} />

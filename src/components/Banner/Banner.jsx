@@ -6,11 +6,11 @@ function Banner() {
     <div className="banner">
       <img src={banner} />
       <div className="banner-text">
-        <h3>Клининговый сервис</h3>
-        <h1>
+        <p className="text-l text-blue">Клининговый сервис</p>
+        <h2 className="text-blue">
           Позаботимся о чистоте, чтобы освободить <br />
           ваше время для любимого дела
-        </h1>
+        </h2>
       </div>
     </div>
   )

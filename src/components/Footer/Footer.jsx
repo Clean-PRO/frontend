@@ -10,14 +10,15 @@ const Footer = () => {
 
   const types = useSelector(calculatorSelectors.getTypes)
 
-  function handleClick(num) {
+  function handleClick(id) {
     dispatch(resetRooms())
-    dispatch(setCleanType(num))
-    dispatch(setTotal(types.filter(card => card.id === num)[0]?.price))
+    dispatch(setCleanType(id))
+    dispatch(setTotal(types.filter(card => card.id === id)[0]?.price))
   }
 
   return (
     <footer className="footer">
+      <div className="footer__background" />
       <div className="footer__container">
         <div className="footer__logo-wrapper">
           <Logo />
@@ -25,8 +26,8 @@ const Footer = () => {
         <div className="footer__column">
           <h4 className="footer__title text-l">Уборка</h4>
           <div className="footer__column">
-            {types.map((type, index) => (
-              <Link onClick={() => handleClick(index + 1)} to="/#calculator" key={type.title} className="footer__link">
+            {types.map(type => (
+              <Link onClick={() => handleClick(type.id)} to="/#calculator" key={type.title} className="footer__link">
                 {type.title}
               </Link>
             ))}
