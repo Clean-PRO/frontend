@@ -42,7 +42,6 @@ const Filters = ({ stateVisible }) => {
       extra: '',
     })
   }, [reset, linkView])
-  // По причине отмены не фильтруется
 
   const onSubmit = data => {
     const orders = cleaningTypeFilter(data, userOrders)
@@ -52,7 +51,8 @@ const Filters = ({ stateVisible }) => {
       [data.dateCliningEnd, data.coastEnd, data.dateOrderEnd],
       ['cleaning_date', 'total_sum', 'creation_date'],
     )
-    const res = extraFilter(data.extra, totalSum)
+    const cancellOrders = cancelFilter(data, totalSum)
+    const res = extraFilter(data.extra, cancellOrders)
     dispatch(setSearch(true))
     dispatch(setFiltred(res))
   }
@@ -104,6 +104,20 @@ const Filters = ({ stateVisible }) => {
     } else {
       return userOrders
     }
+  }
+
+  function cancelFilter(data, userOrders) {
+    const res = []
+    if (data.cancell.length !== 0) {
+      userOrders.forEach(userOrder => {
+        if (data.cancell.includes(userOrder.comment_cancel)) {
+          res.push(userOrder)
+        }
+      })
+    } else {
+      return userOrders
+    }
+    return res
   }
 
   function extraFilter(data, orders) {

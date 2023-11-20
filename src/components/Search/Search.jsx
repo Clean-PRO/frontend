@@ -10,7 +10,7 @@ import { adminSelectors } from '../../store/admin/adminSelectors'
 function Search() {
   const dispatch = useDispatch()
   const { handleSubmit, onChange, register, reset } = useForm()
-  const userOrders = useSelector(orderSelectors.getNewOrders)
+  const userOrders = useSelector(orderSelectors.getAllOrders)
   const linkView = useSelector(adminSelectors.getAdminTab)
 
   useEffect(() => {

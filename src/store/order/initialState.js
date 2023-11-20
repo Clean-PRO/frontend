@@ -1,10 +1,6 @@
 export const initialState = {
   orders: [],
 
-  newOrders: [],
-  accepted: [],
-  finished: [],
-  cancelled: [],
   filtred: [],
 
   search: false,
