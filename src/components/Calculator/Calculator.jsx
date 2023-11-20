@@ -32,6 +32,10 @@ function Calculator() {
           : initialState.total,
       ),
     )
+    return () => {
+      dispatch(resetRooms())
+      dispatch(setTotal(0))
+    }
   }, [cleanType, dispatch, types, repeatedTotal])
 
   function handleActiveType(id) {
@@ -45,8 +49,9 @@ function Calculator() {
 
   return (
     <section id="calculator" className="calculator">
+      <div className="calculator__background" />
       <div className="calculator__container">
-        <h2>Выберите тип уборки</h2>
+        <h2 className="bold">Выберите тип уборки</h2>
         <div className="calculator__wrapper">
           <div className="calculator__cleaning-type-container">
             <CleaningTypesTabs types={types} isActive={isActive} onHandleActiveType={handleActiveType} />

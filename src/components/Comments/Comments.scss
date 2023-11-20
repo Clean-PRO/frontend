@@ -1,8 +1,15 @@
 @import '../../assets/styles/colors.scss';
 
 .comments {
-  background: $color-secondary;
-  min-width: 144rem;
+  position: relative;
+
+  &__background {
+    background: $color-secondary;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
 
   &__container {
     position: relative;

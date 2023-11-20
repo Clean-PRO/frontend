@@ -7,20 +7,22 @@
 
   &__password {
     margin-top: 1.6rem;
-
-    &::before {
-      content: '';
-      position: absolute;
-      display: inline;
-      z-index: 2;
-      background-image: url('../../assets/images/visible-pass.svg');
-      bottom: 1.8rem;
-      right: 1.6rem;
-      width: 1.6rem;
-      height: 1.4rem;
-      cursor: pointer;
-    }
   }
+}
+
+.show-password {
+  background-image: url('../../assets/images/visible.svg');
+  position: absolute;
+  top: 3.56rem;
+  right: 1.6rem;
+  width: 1.6rem;
+  height: 1.4rem;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.show-password.unvisible {
+  background-image: url('../../assets/images/unvisible.svg');
 }
 
 .form-input {
@@ -29,7 +31,7 @@
   border: 1px solid $border-color;
   border-radius: 12px;
   background-color: $background-color-main;
-  padding: 1.2rem 0 1.2rem 1.6rem;
+  padding: 1.2rem 1.6rem;
   font-size: 1.6rem;
 
   &::placeholder {
@@ -40,7 +42,8 @@
   :focus,
   :active {
     border: 1px solid $border-color;
-    border-color: $border-color-active;
+    border-color: $border-color-hover;
+    box-shadow: 0 0 0 2px rgba(129, 172, 229, 0.3);
   }
   &:disabled {
     border: 1px solid $border-color;

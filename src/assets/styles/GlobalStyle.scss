@@ -65,6 +65,8 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+  color: $text-color-main;
 }
 
 p {
@@ -81,10 +83,13 @@ h1 {
 
 h2 {
   font-size: 3.6rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 4.32rem;
   letter-spacing: -0.02em;
-  // text-align: center;
+}
+
+h2.bold {
+  font-weight: 600;
 }
 
 h3 {
@@ -275,6 +280,10 @@ template {
   color: $text-color-secondary;
 }
 
+.text-blue {
+  color: $text-color-tertiary;
+}
+
 .text-black {
   color: $text-color-main;
 }
@@ -293,4 +302,35 @@ template {
 
 .error-text {
   color: $border-color-error;
+}
+
+input[type='date'] {
+  position: relative;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type='date']:before {
+  background: url('../../assets/images/calendar.svg') center no-repeat;
+  display: block;
+  content: '';
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 6px;
+  padding-right: 2rem;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $text-color-grey;
+  border-radius: 20px;
+  border: 3px solid $text-color-grey;
 }

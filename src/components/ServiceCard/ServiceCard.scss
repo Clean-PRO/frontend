@@ -1,8 +1,8 @@
 @import '../../assets/styles/colors.scss';
 
 .service-card__container {
-  width: 22rem;
-  height: 6rem;
+  width: 24rem;
+  height: 7.5rem;
   border: none;
   border-radius: 20px;
   background-color: $background-color-main;
@@ -10,19 +10,23 @@
   justify-content: space-between;
   flex-direction: column;
 
-  &:has(img) {
-    height: 12rem;
+  p {
+    margin: 1.6rem;
   }
 
-  p {
-    margin: 0.8rem 1.6rem 0;
+  &:has(img) {
+    height: 12rem;
+
+    p {
+      margin: 0.8rem 1.6rem 0;
+    }
   }
 }
 
 .service-card__img {
   display: flex;
   justify-content: flex-end;
-  width: 22rem;
+  width: 24rem;
   height: 6rem;
 
   img {

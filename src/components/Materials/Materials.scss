@@ -3,7 +3,7 @@
 
 .materials {
   justify-content: space-between;
-  width: 144rem;
+  max-width: 144rem;
   padding: 0 10rem;
   max-width: 1440px;
   margin: 12rem auto 0;
@@ -27,6 +27,7 @@
 
   &__card-section {
     justify-content: space-between;
+    gap: 3.2rem;
     display: flex;
     flex-direction: column;
   }

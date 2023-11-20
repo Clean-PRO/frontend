@@ -54,7 +54,7 @@ const AuthModal = ({ show, closeModal, code, requestCode }) => {
       }
 
       dispatch(createOrder(data))
-      navigate(ROUTES.payment)
+      navigate(ROUTES.PAYMENT)
       onClose()
     } else {
       setIsError(true)

@@ -162,177 +162,156 @@ function OrderForm() {
       <AuthModal show={showAuthModal} closeModal={setShowAuthModal} code={code} requestCode={requestCode} />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* -------------------------------------USERNAME--------------------------------- */}
-        <div className="inputs_wrapper-field">
+        <InputField
+          isValid={!errors?.username}
+          readOnly={!!userData?.username}
+          label="Имя"
+          {...register('username', {
+            required,
+            minLength: 2,
+            maxLength: {
+              value: 60,
+              message: 'Максимум 60 символов',
+            },
+            pattern: PATTERNS.USERNAME,
+          })}
+          error={errors?.username}
+        />
+        {/* -------------------------------------EMAIL--------------------------------- */}
+        <InputField
+          isValid={!errors?.email}
+          readOnly={!!userData?.email}
+          type="email"
+          id="input-email"
+          label="E-mail"
+          placeholder="example@example.ru"
+          {...register('email', {
+            required,
+            minLength: 5,
+            maxLength: {
+              value: 50,
+              message: 'Максимум 50 символов',
+            },
+            pattern: PATTERNS.EMAIL,
+          })}
+          error={errors?.email}
+        />
+        {/* -------------------------------------PHONE--------------------------------- */}
+        <InputMask
+          onClick={e => {
+            e.target.value ? null : (e.target.value = '+7 (')
+          }}
+          isValid={!errors?.phone}
+          readOnly={!!userData?.phone}
+          type="text"
+          label="Телефон"
+          placeholder="+7 (999) 999-99-99"
+          {...register('phone', {
+            required,
+            minLength: 10,
+            pattern: PATTERNS.PHONE,
+          })}
+          error={errors?.phone}
+          separate
+          component={InputField}
+          mask="+7 (___) ___-__-__"
+          replacement="_"
+        />
+        {/* -------------------------------------ГОРОД--------------------------------- */}
+        <InputField
+          isValid={!errors?.city}
+          readOnly
+          placeholder="Москва"
+          label="Город"
+          {...register('city', {})}
+          error={errors?.city}
+        />
+        {/* -------------------------------------УЛИЦА--------------------------------- */}
+        <InputField
+          isValid={!errors?.street}
+          label="Улица"
+          {...register('street', {
+            required,
+            maxLength: {
+              value: 150,
+              message: 'Максимум 150 символов',
+            },
+          })}
+          error={errors?.street}
+        />
+        <div className="inputs_wrapper">
+          {/* -------------------------------------ДОМ--------------------------------- */}
           <InputField
-            isValid={!errors?.username}
-            readOnly={!!userData?.username}
-            label="Имя"
-            {...register('username', {
+            isValid={!errors?.house}
+            size="small"
+            label="Дом"
+            {...register('house', {
               required,
-              minLength: 2,
+              pattern: {
+                value: /([\d]+[/]?[\d]?[А-Яа-яA-Za-z]?){1}/,
+                message: 'Должна быть хоть бы одна  цифра',
+              },
               maxLength: {
                 value: 60,
                 message: 'Максимум 60 символов',
               },
-              pattern: PATTERNS.USERNAME,
             })}
-            error={errors?.username}
+            error={errors?.house}
           />
-        </div>
-        {/* -------------------------------------EMAIL--------------------------------- */}
-        <div className="inputs_wrapper-field">
-          <InputField
-            isValid={!errors?.email}
-            readOnly={!!userData?.email}
-            type="email"
-            id="input-email"
-            label="E-mail"
-            placeholder="example@example.ru"
-            {...register('email', {
-              required,
-              minLength: 5,
-              maxLength: {
-                value: 50,
-                message: 'Максимум 50 символов',
-              },
-              pattern: PATTERNS.EMAIL,
-            })}
-            error={errors?.email}
-          />
-        </div>
-
-        {/* -------------------------------------PHONE--------------------------------- */}
-        <div className="inputs_wrapper-field">
-          <InputMask
-            onClick={e => {
-              e.target.value ? null : (e.target.value = '+7 (')
-            }}
-            isValid={!errors?.phone}
-            readOnly={!!userData?.phone}
-            type="text"
-            label="Телефон"
-            placeholder="+7 (999) 999-99-99"
-            {...register('phone', {
-              required,
-              minLength: 10,
-              pattern: PATTERNS.PHONE,
-            })}
-            error={errors?.phone}
-            separate
-            component={InputField}
-            mask="+7 (___) ___-__-__"
-            replacement="_"
-          />
-        </div>
-        {/* -------------------------------------ГОРОД--------------------------------- */}
-        <div className="inputs_wrapper-field">
-          <InputField
-            isValid={!errors?.city}
-            readOnly
-            placeholder="Москва"
-            label="Город"
-            {...register('city', {})}
-            error={errors?.city}
-          />
-        </div>
-        {/* -------------------------------------УЛИЦА--------------------------------- */}
-        <div className="inputs_wrapper-field">
-          <InputField
-            isValid={!errors?.street}
-            label="Улица"
-            {...register('street', {
-              required,
-              maxLength: {
-                value: 150,
-                message: 'Максимум 150 символов',
-              },
-            })}
-            error={errors?.street}
-          />
-        </div>
-        <div className="inputs_wrapper">
-          {/* -------------------------------------ДОМ--------------------------------- */}
-          <div className="inputs_wrapper-field">
-            <InputField
-              isValid={!errors?.house}
-              size="small"
-              label="Дом"
-              {...register('house', {
-                required,
-                pattern: {
-                  value: /([\d]+[/]?[\d]?[А-Яа-яA-Za-z]?){1}/,
-                  message: 'Должна быть хоть бы одна  цифра',
-                },
-                maxLength: {
-                  value: 60,
-                  message: 'Максимум 60 символов',
-                },
-              })}
-              error={errors?.house}
-            />
-          </div>
           {/* -------------------------------------КВАРТИРА--------------------------------- */}
-          <div className="inputs_wrapper-field">
-            <InputField
-              isValid={!errors?.apartment}
-              type="number"
-              size="small"
-              label="Квартира"
-              {...register('apartment', {
-                required,
-                max: {
-                  value: 9999,
-                  message: 'Максимальное значение 9999',
-                },
-                min: {
-                  value: 0,
-                  message: 'Минимальное значение 0',
-                },
-              })}
-              error={errors?.apartment}
-            />
-          </div>
+          <InputField
+            isValid={!errors?.apartment}
+            size="small"
+            label="Квартира"
+            {...register('apartment', {
+              required,
+              max: {
+                value: 9999,
+                message: 'Максимальное значение 9999',
+              },
+              min: {
+                value: 0,
+                message: 'Минимальное значение 0',
+              },
+            })}
+            error={errors?.apartment}
+          />
           {/* -------------------------------------ПОДЪЕЗД--------------------------------- */}
-          <div className="inputs_wrapper-field">
-            <InputField
-              isValid={!errors?.entrance}
-              type="number"
-              size="small"
-              label="Подъезд"
-              {...register('entrance', {
-                required,
-                max: {
-                  value: 99,
-                  message: 'Максимальное значение 99',
-                },
-                min: {
-                  value: 0,
-                  message: 'Минимальное значение 0',
-                },
-              })}
-              error={errors?.entrance}
-            />
-          </div>
+          <InputField
+            isValid={!errors?.entrance}
+            size="small"
+            label="Подъезд"
+            {...register('entrance', {
+              required,
+              max: {
+                value: 99,
+                message: 'Максимальное значение 99',
+              },
+              min: {
+                value: 0,
+                message: 'Минимальное значение 0',
+              },
+            })}
+            error={errors?.entrance}
+          />
           {/* -------------------------------------ЭТАЖ--------------------------------- */}
-          <div className="inputs_wrapper-field">
-            <InputField
-              isValid={!errors?.floor}
-              size="small"
-              label="Этаж"
-              {...register('floor', {
-                required,
-                max: {
-                  value: 99,
-                  message: 'Максимальное значение 99',
-                },
-                min: {
-                  value: 0,
-                  message: 'Минимальное значение 0',
-                },
-              })}
-              error={errors?.floor}
-            />
-          </div>
+          <InputField
+            isValid={!errors?.floor}
+            size="small"
+            label="Этаж"
+            {...register('floor', {
+              required,
+              max: {
+                value: 99,
+                message: 'Максимальное значение 99',
+              },
+              min: {
+                value: 0,
+                message: 'Минимальное значение 0',
+              },
+            })}
+            error={errors?.floor}
+          />
           {/* -------------------------------------ДАТА--------------------------------- */}
           <div className="inputs_wrapper-field">
             <InputFieldDate
@@ -362,6 +341,9 @@ function OrderForm() {
               })}
               placeholder={''}
               options={TIME_OPTIONS}
+              components={{
+                IndicatorSeparator: () => null,
+              }}
               value={slotValue ? TIME_OPTIONS.find(x => x.value === slotValue) : slotValue}
               onChange={option => timeOnChange(option ? option.value : option)}
               {...restTimeField}

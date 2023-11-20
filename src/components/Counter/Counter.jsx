@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux'
 import './Counter.scss'
+import IconMinus from '../../assets/images/IconMinus'
+import IconPlus from '../../assets/images/IconPlus'
 
 function Counter({ count, min, max, price = 0, setCount, index }) {
   const dispatch = useDispatch()
@@ -17,11 +19,11 @@ function Counter({ count, min, max, price = 0, setCount, index }) {
   return (
     <div className="counter__container">
       <button className="btn-decrement" onClick={handleDecrement}>
-        −
+        <IconMinus />
       </button>
       <span>{count}</span>
       <button className="btn-increment" onClick={handleIncrement}>
-        +
+        <IconPlus />
       </button>
     </div>
   )

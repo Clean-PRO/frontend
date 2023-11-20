@@ -44,7 +44,7 @@
   &__rating:after {
     content: '';
     display: inline-block;
-    background: url(../../assets/images/star.png) center no-repeat;
+    background: url('../../assets/images/star.svg') center no-repeat;
     width: 1.6rem;
     height: 1.6rem;
     margin-left: 0.4rem;
@@ -61,15 +61,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     text-overflow: ellipsis;
-  }
-
-  ::-webkit-scrollbar {
-    width: 3px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: $text-color-grey;
-    border-radius: 20px;
-    border: 3px solid $text-color-grey;
   }
 
   &__name-charwoman {

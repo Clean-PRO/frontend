@@ -1,8 +1,9 @@
 .profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  max-width: 39.2rem;
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+  }
 
   &__section {
     display: flex;
@@ -36,6 +37,7 @@
   }
 
   &__button-wrapper {
+    margin-top: 4.8rem;
     max-width: 28.6rem;
   }
 }

@@ -5,7 +5,7 @@ import material3 from '../../assets/images/material3.png'
 const Materials = () => {
   return (
     <section className="materials">
-      <h2 className="materials__title">Средства и материалы</h2>
+      <h2 className="materials__title bold">Средства и материалы</h2>
       <div className="materials__cards">
         <div className="materials__card full">
           <p className="materials__card-title">Специальная техника</p>

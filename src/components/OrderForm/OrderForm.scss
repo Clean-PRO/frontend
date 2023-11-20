@@ -1,6 +1,7 @@
 @import '../../assets/styles/colors.scss';
 
 form {
+  width: 100%;
   display: flex;
   gap: 0.8rem;
   flex-direction: column;
@@ -31,7 +32,7 @@ form {
   :focus,
   :active {
     border: 1px solid $border-color;
-    border-color: $border-color-active;
+    border-color: $border-color-hover;
   }
 
   &:disabled {
@@ -58,7 +59,8 @@ form {
   :focus,
   :active {
     border: 1px solid $border-color;
-    border-color: $border-color-active;
+    border-color: $border-color-hover;
+    box-shadow: 0 0 0 2px rgba(129, 172, 229, 0.3);
   }
 
   &:disabled {

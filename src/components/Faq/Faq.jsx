@@ -16,7 +16,7 @@ const Faq = () => {
 
   return (
     <section className="faq" id="faq">
-      <h3 className="faq__title">Частые вопросы</h3>
+      <h2 className="bold">Частые вопросы</h2>
       <div className="faq__questions">
         {questions.map(el => (
           <div key={el.id} className="faq__question">

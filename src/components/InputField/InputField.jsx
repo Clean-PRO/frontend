@@ -1,5 +1,5 @@
 import './InputField.scss'
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 
 const InputField = forwardRef(
   (
@@ -17,8 +17,13 @@ const InputField = forwardRef(
     },
     ref,
   ) => {
-    function handleFocus(e) {
-      if (focus) e.target.setAttribute('type', 'date')
+    const [inputType, setInputType] = useState(type)
+
+    function handleFocus() {
+      if (focus) setInputType('date')
+    }
+    function handleShowPassword() {
+      setInputType(type => (type === 'text' ? 'password' : 'text'))
     }
 
     return (
@@ -30,11 +35,16 @@ const InputField = forwardRef(
             type === 'password' ? 'input__password' : ''
           } ${classNameModal} ${isValid ? '' : 'form-input__error'}`}
           placeholder={placeholder}
-          type={type}
+          type={inputType}
           onFocus={e => handleFocus(e)}
           ref={ref}
           {...rest}
         />
+        {type === 'password' && (
+          <span
+            onClick={handleShowPassword}
+            className={`show-password ${inputType === 'text' ? 'unvisible' : ''}`}></span>
+        )}
         {error && <span className="error-text">{error.message || 'Ошибка'}</span>}
       </div>
     )

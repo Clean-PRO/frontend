@@ -6,6 +6,7 @@
 
 .include-service__cards {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.6rem;
   flex-wrap: wrap;
 }

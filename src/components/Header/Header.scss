@@ -2,10 +2,17 @@
 @import '../../assets/styles/GlobalStyle.scss';
 
 .header {
-  width: 144rem;
-  margin: 0 auto;
-  padding: 2.55rem 10rem;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: $background-color-main;
+  z-index: 2;
 
+  &__wrapper {
+    margin: 0 auto;
+    max-width: 144rem;
+    padding: 2.55rem 10rem;
+  }
   &__profile-menu {
     list-style: none;
     display: none;

@@ -1,9 +1,6 @@
 .about {
-  &__more {
-    padding: 6rem 0 0 0;
-    display: flex;
-    gap: 3.3rem;
-    justify-content: space-between;
+  &__more-wrapper {
+    max-width: 28.6rem;
   }
   &__more-img {
     display: block;

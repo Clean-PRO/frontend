@@ -15,14 +15,14 @@ const Comments = () => {
   const ratings = useSelector(ratingsSelectors.getRatings)
 
   return (
-    <section className="comments">
+    <section className="comments" id="comments">
+      <div className="comments__background" />
       {location === '/' ? (
         <div className="comments__container">
-          <div className="comments__wrapper" id="comments">
-            <h2 className="comments__title">Отзывы клиентов</h2>
-
+          <div className="comments__wrapper">
+            <h2 className="comments__title bold">Отзывы клиентов</h2>
             {ratings?.count !== 0 && (
-              <Link to="/about" className="comments__go">
+              <Link to="/about/#comments" className="comments__go">
                 Посмотреть все
               </Link>
             )}
@@ -43,7 +43,7 @@ const Comments = () => {
       ) : (
         <div className="comments__container">
           <div className="comments__wrapper">
-            <h2 className="comments__title">Отзывы клиентов</h2>
+            <h2 className="comments__title bold">Отзывы клиентов</h2>
           </div>
           {ratings?.count !== 0 ? (
             <Swiper
