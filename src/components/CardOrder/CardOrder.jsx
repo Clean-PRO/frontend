@@ -27,6 +27,10 @@ function CardOrder({
     return parts.reverse().join('.')
   }
 
+  const viewTab = useSelector(adminSelectors.getAdminTab)
+  const [viewExtra, setViewExtra] = useState(true)
+  const [showCancel, setShowCancel] = useState(false)
+
   async function acceptOrder(e) {
     e.preventDefault()
     const token = getToken()
@@ -34,10 +38,10 @@ function CardOrder({
     setShowCancel(false)
   }
 
-  const viewTab = useSelector(adminSelectors.getAdminTab)
-  const [viewExtra, setViewExtra] = useState(true)
-  const [showCancel, setShowCancel] = useState(false)
-
+  const handleRemoveOrder = e => {
+    e.stopPropagation()
+    setShowCancel(!showCancel)
+  }
   return (
     <div className="wrapper" onClick={() => setViewExtra(!viewExtra)}>
       <div className="card-order grid">
@@ -61,7 +65,7 @@ function CardOrder({
               <button className="card-order__button text-m-bold" onClick={e => acceptOrder(e)}>
                 Принять
               </button>
-              <button className="card-order__close" onClick={() => setShowCancel(true)}>
+              <button className="card-order__close" onClick={handleRemoveOrder}>
                 +
               </button>
             </>
@@ -97,7 +101,7 @@ function CardOrder({
         </div>
         {!viewExtra && <AdditionalInfoAdmin address={address} user={user} services={services} />}
       </div>
-      <CancelOrder show={showCancel} closeModal={() => setShowCancel(false)} order={id} />
+      <CancelOrder show={showCancel} closeModal={handleRemoveOrder} order={id} />
     </div>
   )
 }

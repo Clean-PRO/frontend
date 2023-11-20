@@ -16,7 +16,6 @@ function CancelOrder({ show, closeModal, order }) {
     const token = getToken()
     await ordersAPI.updateOrder(order, token, { order_status: 'cancelled' })
     dispatch(getUserOrders())
-    console.log(order)
     closeModal()
   }
 
@@ -25,15 +24,13 @@ function CancelOrder({ show, closeModal, order }) {
     <>
       {createPortal(
         <div className="modal">
-          <form onSubmit={handleSubmit} action="" className="modal__form">
-            <div className="modal__wrapper">
-              <p className="text-l">Вы уверены, что хотите отменить уборку?</p>
-              <div className="modal__button-wrapper">
-                <Button buttonText="Отменить" buttonClassName="button button__modal-indent" type="submit" />
-                <button className="modal__cancell text-m-bold" onClick={closeModal}>
-                  Вернуться
-                </button>
-              </div>
+          <form onSubmit={handleSubmit} action="" className="modal__wrapper">
+            <p className="text-l">Вы уверены, что хотите отменить уборку?</p>
+            <div className="modal__button-wrapper">
+              <Button buttonText="Отменить" buttonClassName="button button__modal-indent" type="submit" />
+              <button className="modal__cancell text-m-bold" onClick={closeModal}>
+                Вернуться
+              </button>
             </div>
           </form>
         </div>,
