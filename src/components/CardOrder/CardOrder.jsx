@@ -2,9 +2,12 @@ import './CardOrder.scss'
 
 import { useSelector } from 'react-redux'
 import { adminSelectors } from '../../store/admin/adminSelectors'
+import { getToken } from '../../utils/tokenActions'
 
 import AdditionalInfoAdmin from '../AdditionalInfoAdmin/AdditionalinfoAdmin'
 import { useState } from 'react'
+import CancelOrder from '../Modal/CancelOrder/CancelOrder'
+import ordersAPI from '../../api/ordersAPI'
 
 function CardOrder({
   id,
@@ -24,8 +27,16 @@ function CardOrder({
     return parts.reverse().join('.')
   }
 
+  async function acceptOrder(e) {
+    e.preventDefault()
+    const token = getToken()
+    await ordersAPI.updateOrder(id, token, { order_status: 'accepted' })
+    setShowCancel(false)
+  }
+
   const viewTab = useSelector(adminSelectors.getAdminTab)
   const [viewExtra, setViewExtra] = useState(true)
+  const [showCancel, setShowCancel] = useState(false)
 
   return (
     <div className="wrapper" onClick={() => setViewExtra(!viewExtra)}>
@@ -47,15 +58,21 @@ function CardOrder({
         <div className="grid__item text-m-bold card-order__complete">
           {viewTab === 'new' && (
             <>
-              <button className="card-order__button text-m-bold">Принять</button>
-              <div className="card-order__close">+</div>
+              <button className="card-order__button text-m-bold" onClick={e => acceptOrder(e)}>
+                Принять
+              </button>
+              <button className="card-order__close" onClick={() => setShowCancel(true)}>
+                +
+              </button>
             </>
           )}
 
           {viewTab === 'current' && (
             <>
               <button className="card-order__button text-m-bold">Завершить</button>
-              <div className="card-order__close">+</div>
+              <button className="card-order__close" onClick={() => setShowCancel(true)}>
+                +
+              </button>
             </>
           )}
           {viewTab === 'completed' && (
@@ -80,6 +97,7 @@ function CardOrder({
         </div>
         {!viewExtra && <AdditionalInfoAdmin address={address} user={user} services={services} />}
       </div>
+      <CancelOrder show={showCancel} closeModal={() => setShowCancel(false)} order={id} />
     </div>
   )
 }

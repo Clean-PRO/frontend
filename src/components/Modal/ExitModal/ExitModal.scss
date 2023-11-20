@@ -1,0 +1,22 @@
+@import '../../../assets/styles/colors.scss';
+
+.modal {
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-self: center;
+    padding: 6rem 6rem 7.2rem;
+    position: relative;
+    z-index: 2;
+    background-color: $background-color-secondary;
+    border-radius: 2rem;
+  }
+
+  &__cancell {
+    border: none;
+    margin-top: 1.6rem;
+    color: $text-color-tertiary;
+  }
+}

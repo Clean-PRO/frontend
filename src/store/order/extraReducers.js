@@ -10,10 +10,10 @@ export const buildGetUserOrders = builder =>
       state.orders = action.payload.results.sort(
         (a, b) => new Date(`1970/01/01 ${b.creation_time}`) - new Date(`1970/01/01 ${a.creation_time}`),
       )
-      state.newOrders = action.payload.results.filter((order) => order.order_status === 'Создан')
-      state.accepted = action.payload.results.filter((order) => order.order_status === 'accepted')
-      state.finished = action.payload.results.filter((order) => order.order_status === 'finished')
-      state.cancelled = action.payload.results.filter((order) => order.order_status === 'cancelled')
+      // state.newOrders = action.payload.results.filter((order) => order.order_status === 'Создан')
+      // state.accepted = action.payload.results.filter((order) => order.order_status === 'accepted')
+      // state.finished = action.payload.results.filter((order) => order.order_status === 'finished')
+      // state.cancelled = action.payload.results.filter((order) => order.order_status === 'cancelled')
       state.userOrdersError = null
     })
     .addCase(getUserOrders.rejected, state => {

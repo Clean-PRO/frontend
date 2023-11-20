@@ -6,18 +6,57 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authSelectors } from '../../store/auth/authSelectors'
 import { updateUser } from '../../store/auth/authActions'
 import { PATTERNS } from '../../utils/validation'
+import { InputMask } from '@react-input/mask'
+import myMask from '../../utils/myPhoneMask'
+import Popup from '../Popup/Popup'
+import { useEffect } from 'react'
+import { resetUserStatus } from '../../store/auth/authSlice'
 
 const ProfileForm = () => {
-  const userData = useSelector(authSelectors.getUser)
   const dispatch = useDispatch()
+
+  const userUpdateStatus = useSelector(authSelectors.getUserUpdateStatus)
+  const userData = useSelector(authSelectors.getUser)
+
   const {
     register,
     handleSubmit,
     getFieldState,
+    reset,
     formState: { errors },
   } = useForm({
     mode: 'onChange',
+    defaultValues: {
+      username: '',
+      email: '',
+      phone: '',
+      city: 'Москва',
+      street: '',
+      house: '',
+      apartment: '',
+      entrance: '',
+      floor: '',
+    },
   })
+
+  useEffect(() => {
+    dispatch(resetUserStatus())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (userData) {
+      reset({
+        username: userData?.username,
+        email: userData?.email,
+        phone: myMask(userData?.phone),
+        street: userData?.address?.street,
+        house: userData?.address?.house,
+        apartment: userData?.address?.apartment,
+        entrance: userData?.address?.entrance,
+        floor: userData?.address?.floor,
+      })
+    }
+  }, [userData, reset])
 
   function onSubmit(data) {
     const { city, street, house, apartment, floor, entrance, ...rest } = data
@@ -32,7 +71,6 @@ const ProfileForm = () => {
         <div className="profile-form__inputs-block profile-form__inputs-block_contacts">
           <InputField
             label="Имя"
-            value={userData?.username || ''}
             {...register('username', {
               pattern: PATTERNS.USERNAME,
               required: 'Заполните поле имя',
@@ -42,7 +80,6 @@ const ProfileForm = () => {
           />
           <InputField
             label="E-mail"
-            value={userData?.email || ''}
             {...register('email', {
               pattern: PATTERNS.EMAIL,
               required: 'Заполните поле email',
@@ -50,15 +87,24 @@ const ProfileForm = () => {
             error={errors?.email}
             isValid={!getFieldState('email').invalid}
           />
-          <InputField
+
+          <InputMask
+            onClick={e => {
+              e.target.value ? null : (e.target.value = '+7 (')
+            }}
+            isValid
+            type="text"
             label="Телефон"
-            value={userData?.phone || ''}
+            placeholder="+7 (999) 999-99-99"
             {...register('phone', {
+              minLength: 10,
               pattern: PATTERNS.PHONE,
-              required: 'Заполните поле телефон',
             })}
             error={errors?.phone}
-            isValid={!getFieldState('phone').invalid}
+            separate
+            component={InputField}
+            mask="+7 (___) ___-__-__"
+            replacement="_"
           />
         </div>
       </div>
@@ -67,14 +113,12 @@ const ProfileForm = () => {
         <div className="profile-form__inputs-block profile-form__inputs-block_address">
           <InputField
             label="Город"
-            value="Москва"
             {...register('city')}
             error={errors?.city}
             isValid={!getFieldState('city').invalid}
           />
           <InputField
             label="Улица"
-            value={userData?.address?.street || ''}
             {...register('street', { required: 'Укажите адрес. Пример: ул. Цветочная' })}
             error={errors?.street}
             isValid={!getFieldState('street').invalid}
@@ -82,7 +126,6 @@ const ProfileForm = () => {
           <div className="profile-form__small-iputs-wrapper">
             <InputField
               label="Дом"
-              value={userData?.address?.house || ''}
               size="small"
               {...register('house', { required: 'Укажите номер дома. Пример: д. 15, Лит. С' })}
               error={errors?.house}
@@ -90,7 +133,6 @@ const ProfileForm = () => {
             />
             <InputField
               label="Квартира"
-              value={userData?.address?.apartment || ''}
               size="small"
               {...register('apartment', { minLength: 1, maxLength: { value: 4, message: 'Не более 4х знаков' } })}
               error={errors?.apartment}
@@ -100,7 +142,6 @@ const ProfileForm = () => {
           <div className="profile-form__small-iputs-wrapper">
             <InputField
               label="Подъезд"
-              value={userData?.address?.entrance || ''}
               size="small"
               {...register('entrance', { minLength: 0, maxLength: { value: 2, message: 'Не более 2х знаков' } })}
               error={errors?.entrance}
@@ -108,7 +149,6 @@ const ProfileForm = () => {
             />
             <InputField
               label="Этаж"
-              value={userData?.address?.floor || ''}
               size="small"
               {...register('floor', { minLength: 0, maxLength: { value: 2, message: 'Не более 2х знаков' } })}
               error={errors?.floor}
@@ -120,6 +160,12 @@ const ProfileForm = () => {
       <div className="profile-form__button-wrapper">
         <Button buttonClassName="button" buttonText="Сохранить изменения" />
       </div>
+      {userUpdateStatus === 'success' && (
+        <Popup content="Данные успешно сохранены" condition={userUpdateStatus === 'success'} />
+      )}
+      {userUpdateStatus === 'error' && (
+        <Popup error content="Произошла ошибка, данные не изменены." condition={userUpdateStatus === 'error'} />
+      )}
     </form>
   )
 }

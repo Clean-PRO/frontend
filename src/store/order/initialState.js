@@ -5,6 +5,9 @@ export const initialState = {
   accepted: [],
   finished: [],
   cancelled: [],
+  filtred: [],
+
+  search: false,
 
   newOrder: null,
   repeatOrder: null,

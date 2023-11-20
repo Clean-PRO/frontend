@@ -33,6 +33,8 @@
     font-size: 25px;
     color: $text-color-main;
     transform: rotate(45deg);
+    background: none;
+    border: none;
   }
 
   &__cancelled-comment {

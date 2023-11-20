@@ -1,22 +1,38 @@
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import './Search.scss'
-import search from '../../assets/images/search.svg'
+import { orderSelectors } from '../../store/order/orderSelectors'
+import { setFiltred } from '../../store/order/orderSlice'
+import { setSearch } from '../../store/order/orderSlice'
+import { adminSelectors } from '../../store/admin/adminSelectors'
 
 function Search() {
-  const [searchText, setSearchText] = useState('')
-  console.log(searchText)
-  const handleChange = evt => {
-    setSearchText(evt.target.value)
+  const dispatch = useDispatch()
+  const { handleSubmit, onChange, register, reset } = useForm()
+  const userOrders = useSelector(orderSelectors.getNewOrders)
+  const linkView = useSelector(adminSelectors.getAdminTab)
+
+  useEffect(() => {
+    reset({
+      searchText: '',
+    })
+  }, [reset, linkView])
+
+  function filterOrders(data) {
+    dispatch(setFiltred(userOrders.filter(order => order.id == data.searchText)))
+  }
+
+  const onSubmit = data => {
+    filterOrders(data)
+    dispatch(setSearch(true))
   }
 
   return (
-    <>
-      <div className="search">
-        <input placeholder="Номер заказа" className="search__input" onChange={handleChange} />
-        <button type="submit" className="search__button"></button>
-        <img className="search__input-icon" src={search} alt="Поиск" />
-      </div>
-    </>
+    <form className="search" onSubmit={handleSubmit(onSubmit)}>
+      <input placeholder="Номер заказа" className="search__input" onChange={onChange} {...register('searchText')} />
+      <button type="submit" className="search__button"></button>
+    </form>
   )
 }
 

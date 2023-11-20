@@ -6,18 +6,16 @@ class OrdersApi {
     return FetchApi.get(`${API_URL.ORDERS}`, { token })
   }
 
-  createOrder(body) {
-    return FetchApi.post(`${API_URL.ORDERS}`, { body })
+  createOrder(token, body) {
+    return FetchApi.post(`${API_URL.ORDERS}`, { token, body })
   }
 
   repeatOrder(token, id) {
     return FetchApi.get(`${API_URL.ORDERS}${id}/`, { token, id })
   }
-  changeDateTime(order, body) {
-    return FetchApi.patch(`/orders/${order}/`, body)
-  }
-  cancel(order, body) {
-    return FetchApi.patch(`/orders/${order}/`, body)
+
+  updateOrder(order, token, body) {
+    return FetchApi.put(`/orders/${order}/`, { token, body })
   }
 }
 

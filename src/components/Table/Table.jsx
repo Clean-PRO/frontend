@@ -1,12 +1,11 @@
 import TableTitle from '../TableTitle/TableTitle'
-
 import CardOrder from '../CardOrder/CardOrder'
-
 import { getUserOrders } from '../../store/order/orderActions'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { orderSelectors } from '../../store/order/orderSelectors'
 import { adminSelectors } from '../../store/admin/adminSelectors'
+import { setSearch } from '../../store/order/orderSlice'
 
 function Table() {
   const dispatch = useDispatch()
@@ -16,17 +15,34 @@ function Table() {
   }, [dispatch])
 
   const linkView = useSelector(adminSelectors.getAdminTab)
+  const search = useSelector(orderSelectors.getSearch)
+  const orders = useSelector(orderSelectors.getAllOrders)
+  const filter = useSelector(orderSelectors.getFiltred)
 
-  let userOrders
-    if (linkView === 'new') {
-      userOrders = useSelector(orderSelectors.getNewOrders)
-    } else if (linkView === 'current') {
-      userOrders = useSelector(orderSelectors.getAccepted)
-    } else if (linkView === 'finished') {
-      userOrders = useSelector(orderSelectors.getFinished)
-    } else if (linkView === 'cancelled') {
-      userOrders = useSelector(orderSelectors.getCancelled)
+  useEffect(() => {
+    dispatch(setSearch(false))
+  }, [dispatch, linkView])
+
+  const setUserOrders = () => {
+    if (linkView === 'new' && search === false) {
+      return orders.filter(order => order.order_status === 'Создан')
+    } else if (linkView === 'new' && search === true) {
+      return filter
+    } else if (linkView === 'current' && search === false) {
+      return orders.filter(order => order.order_status === 'accepted')
+    } else if (linkView === 'current' && search === true) {
+      return filter
+    } else if (linkView === 'finished' && search === false) {
+      return orders.filter(order => order.order_status === 'finished')
+    } else if (linkView === 'finished' && search === true) {
+      return filter
+    } else if (linkView === 'cancelled' && search === false) {
+      return orders.filter(order => order.order_status === 'cancelled')
+    } else if (linkView === 'cancelled' && search === true) {
+      return filter
     }
+  }
+  const userOrders = setUserOrders()
 
   return (
     <div>

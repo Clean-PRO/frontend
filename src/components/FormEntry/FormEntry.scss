@@ -2,15 +2,14 @@
 
 .form-entry {
   margin: 13.6rem auto;
-  width: 144rem;
+  max-width: 144rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
   &__container {
     background: $background-color-secondary;
-    width: 51.2rem;
-    max-width: 100%;
+    max-width: 51.2rem;
     border-radius: 2rem;
   }
   &__content {

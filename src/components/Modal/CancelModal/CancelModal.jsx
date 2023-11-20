@@ -13,20 +13,18 @@ import ordersAPI from '../../../api/ordersAPI'
 
 function CancelModal({ order, show, closeModal }) {
   const dispatch = useDispatch()
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const form = e.target
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
     const token = getToken()
-    ordersAPI.cancel(order, {
-      body:{ "comment_cancel": formJson.text || formJson.reason},
-     token:token
-     } 
-      )
-      console.log(formJson)
-      dispatch(getUserOrders())
-      closeModal()
+    await ordersAPI.updateOrder(order, token, {
+      comment_cancel: formJson.text || formJson.reason,
+      order_status: 'cancelled',
+    })
+    dispatch(getUserOrders())
+    closeModal()
   }
   if (!show) return null
   return (

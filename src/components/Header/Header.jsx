@@ -2,7 +2,9 @@ import { Link, useLocation } from 'react-router-dom'
 import Logo from '../Logo/Logo'
 import signin from '../../assets/images/signin.svg'
 import profile from '../../assets/images/profile.svg'
+import ExitModal from '../Modal/ExitModal/ExitModal'
 import './Header.scss'
+import { useState } from 'react'
 import { ROUTES } from '../../constants/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { authSelectors } from '../../store/auth/authSelectors'
@@ -12,15 +14,15 @@ import {
   handleClickStaff,
   handleClickStatistics,
 } from '../../store/admin/adminSlice'
-import { handleProfile } from '../../store/profile/profileSlice'
-import { logOut } from '../../store/auth/authActions'
+import { handleProfile, handleOrder } from '../../store/profile/profileSlice'
 
 const Header = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const isAuth = useSelector(authSelectors.getIsAuth)
-  const isAdmin = false
-
+  const [showExit, setShowExit] = useState(false)
+  const isAdmin = useSelector(authSelectors.getAdmin)
+  // const isAdmin = true
   return (
     <header className="header">
       <nav className="header__menu">
@@ -64,10 +66,9 @@ const Header = () => {
                     Статистика
                   </Link>
                 </li>
-                <li className="header__list text-m" onClick={() => dispatch(logOut())}>
-                  <Link to="/" className="header__menu-list">
-                    Выход
-                  </Link>
+                <li className="header__list text-m" onClick={() => setShowExit(s => !s)}>
+                  <p className="header__menu-list">Выход</p>
+                  <ExitModal show={showExit} closeModal={() => setShowExit(false)} />
                 </li>
               </ul>
             </nav>
@@ -84,7 +85,7 @@ const Header = () => {
               <p className="header__profile">Профиль</p>
               <ul className="header__profile-menu">
                 <li className="header__list text-m">
-                  <Link to="/profile" className="header__menu-list">
+                  <Link to="/profile" onClick={() => dispatch(handleOrder())} className="header__menu-list">
                     Мои уборки
                   </Link>
                 </li>
@@ -93,10 +94,9 @@ const Header = () => {
                     Личные данные
                   </Link>
                 </li>
-                <li className="header__list text-m" onClick={() => dispatch(logOut())}>
-                  <Link to="/" className="header__menu-list">
-                    Выход
-                  </Link>
+                <li className="header__list text-m" onClick={() => setShowExit(s => !s)}>
+                  <p className="header__menu-list">Выход</p>
+                  <ExitModal show={showExit} closeModal={() => setShowExit(false)} />
                 </li>
               </ul>
             </nav>

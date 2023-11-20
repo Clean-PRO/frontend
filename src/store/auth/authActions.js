@@ -16,9 +16,9 @@ export const signInUser = createAsyncThunk('auth/signin', async (body, { dispatc
 export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     const token = getToken()
-    const logout = await authAPI.logout(token)
+    const res = await authAPI.logout(token)
     removeToken()
-    return logout
+    return res
   } catch (e) {
     return rejectWithValue(e)
   }

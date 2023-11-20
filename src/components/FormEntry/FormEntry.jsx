@@ -1,30 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { handleClickEntry, handleClickRecovery, handleClickRegistration } from '../../store/formEntry/formEntrySlice'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import Button from '../Button/Button'
 import InputField from '../InputField/InputField'
 import { formEntrySelectors } from '../../store/formEntry/formEntrySelectors'
+import { authSelectors } from '../../store/auth/authSelectors'
 import './FormEntry.scss'
 import { registration, signInUser } from '../../store/auth/authActions'
 import { useEffect } from 'react'
 import { PATTERNS } from '../../utils/validation'
+import Popup from '../Popup/Popup'
+import { resetSignInError, resetSignUpError } from '../../store/auth/authSlice'
+
+const defaults = {
+  email: '',
+  password: '',
+}
 
 function FormEntry() {
-  const viewForm = useSelector(formEntrySelectors.getFormView)
   const dispatch = useDispatch()
+
+  const viewForm = useSelector(formEntrySelectors.getFormView)
+  const signUpError = useSelector(authSelectors.getSignUpError)
+  const signInError = useSelector(authSelectors.getSignInError)
+
   const {
-    control,
+    register,
     handleSubmit,
     clearErrors,
     getFieldState,
     reset,
     formState: { errors },
   } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    mode: 'onSubmit',
+    defaultValues: defaults,
   })
 
   const handleEntry = () => dispatch(handleClickEntry())
@@ -32,16 +41,24 @@ function FormEntry() {
   const handleRegistration = () => dispatch(handleClickRegistration())
 
   useEffect(() => {
+    dispatch(resetSignUpError())
+    dispatch(resetSignInError())
+  }, [dispatch])
+
+  useEffect(() => {
+    reset(defaults)
+  }, [reset, viewForm])
+
+  useEffect(() => {
     dispatch(handleClickRegistration())
   }, [dispatch])
 
-  const onSubmit = (data, e) => {
+  const onSubmit = data => {
     if (viewForm === 'registration') dispatch(registration(data))
     if (viewForm === 'entry') dispatch(signInUser(data))
     //TODO action recovery
     // if (viewForm === 'recovery')
-    e.target.reset()
-    reset({ email: '' }, { password: '' })
+    reset(defaults)
   }
 
   return (
@@ -77,9 +94,11 @@ function FormEntry() {
           {viewForm === 'recovery' && <p className="form-entry__title-recovery">Восстановление пароля</p>}
 
           <div className="form-entry__input-container">
-            <Controller
-              control={control}
-              rules={{
+            <InputField
+              isValid={!getFieldState('email').invalid}
+              type="email"
+              label="Почта"
+              {...register('email', {
                 required: { value: true, message: 'Заполните все поля.' },
                 pattern: PATTERNS.EMAIL,
                 maxLength: {
@@ -90,40 +109,20 @@ function FormEntry() {
                   value: 5,
                   message: PATTERNS.EMAIL.message,
                 },
-              }}
-              render={({ field: { onBlur, onChange } }) => (
-                <InputField
-                  key={`${viewForm}-email`}
-                  type="email"
-                  label="Почта"
-                  onBlur={onBlur}
-                  onChange={onChange}
-                  isValid={!getFieldState('email').invalid}
-                  error={errors?.email}
-                />
-              )}
-              name="email"
+              })}
+              error={errors?.email}
             />
             {(viewForm === 'registration' || viewForm === 'entry') && (
               <div className="form-enter__wrapper-input">
-                <Controller
-                  control={control}
-                  rules={{
+                <InputField
+                  isValid={!getFieldState('password').invalid}
+                  type="password"
+                  label="Пароль"
+                  {...register('password', {
                     required: { value: true, message: 'Заполните все поля.' },
                     pattern: PATTERNS.PASSWORD,
-                  }}
-                  render={({ field: { onChange, onBlur } }) => (
-                    <InputField
-                      key={`${viewForm}-password`}
-                      type="password"
-                      label="Пароль"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      isValid={!getFieldState('password').invalid}
-                      error={errors?.password}
-                    />
-                  )}
-                  name="password"
+                  })}
+                  error={errors?.password}
                 />
               </div>
             )}
@@ -169,6 +168,8 @@ function FormEntry() {
           )}
         </div>
       </form>
+      {signUpError && <Popup error content={signUpError?.email?.[0]} condition={signUpError} />}
+      {signInError && <Popup error content={signInError?.non_field_errors?.[0]} condition={signInError} />}
     </section>
   )
 }

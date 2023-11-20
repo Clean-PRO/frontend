@@ -4,7 +4,6 @@
 .header {
   width: 144rem;
   margin: 0 auto;
-  justify-content: space-between;
   padding: 2.55rem 10rem;
 
   &__profile-menu {
@@ -45,7 +44,7 @@
   &__list {
     padding: 0.8rem 0 0.8rem 1.6rem;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: $list-color;
     }
   }

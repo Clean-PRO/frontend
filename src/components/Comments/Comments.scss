@@ -2,11 +2,12 @@
 
 .comments {
   background: $color-secondary;
+  min-width: 144rem;
 
   &__container {
     position: relative;
     margin: 0 auto 12rem;
-    width: 144rem;
+    max-width: 144rem;
     padding: 7.2rem 10rem;
     box-sizing: border-box;
   }

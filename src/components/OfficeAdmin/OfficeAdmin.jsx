@@ -38,7 +38,7 @@ function OfficeAdmin() {
         ))}
       </div>
       <div className="office__field-search">
-        <form className="office__data-search">
+        <div className="office__data-search">
           <div className="office__search">
             <div className="office__search-flex">
               <Search />
@@ -47,7 +47,7 @@ function OfficeAdmin() {
             <UploadButton text="Выгрузить данные" />
           </div>
           <Filters stateVisible={visibleFieldFilters} />
-        </form>
+        </div>
       </div>
       <Table />
     </section>

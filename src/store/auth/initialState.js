@@ -1,6 +1,7 @@
 export const initialState = {
   user: null,
   isAuth: false,
+  isAdmin: false,
 
   signInStatus: 'initial',
   signInError: null,

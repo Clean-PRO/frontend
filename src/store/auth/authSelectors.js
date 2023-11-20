@@ -6,6 +6,9 @@ const getUser = state => state.auth.user
 const getUserError = state => state.auth.userError
 const getUserStatus = state => state.auth.userStatus
 const getIsAuth = state => state.auth.isAuth
+const getUserUpdateStatus = state => state.auth.userUpdateStatus
+const getUserUpdateError = state => state.auth.userUpdateError
+const getAdmin = state => state.auth.isAdmin
 
 export const authSelectors = {
   getUserError,
@@ -16,4 +19,7 @@ export const authSelectors = {
   getSignUpStatus,
   getUser,
   getIsAuth,
+  getUserUpdateStatus,
+  getUserUpdateError,
+  getAdmin,
 }

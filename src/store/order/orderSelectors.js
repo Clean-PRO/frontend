@@ -5,6 +5,8 @@ const getNewOrders = state => state.order.newOrders
 const getCancelled = state => state.order.cancelled
 const getFinished = state => state.order.finished
 const getAccepted = state => state.order.accepted
+const getFiltred = state => state.order.filtred
+const getSearch = state => state.order.search
 
 export const orderSelectors = {
   getAllOrders,
@@ -14,4 +16,6 @@ export const orderSelectors = {
   getCancelled,
   getFinished,
   getAccepted,
+  getFiltred,
+  getSearch,
 }
