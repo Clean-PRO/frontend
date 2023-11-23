@@ -57,7 +57,7 @@ export const buildGetUser = builder =>
       state.userStatus = 'success'
       state.user = action.payload ? action.payload : null
       state.isAuth = true
-      state.isAdmin = action.payload.is_staff
+      state.isAdmin = action.payload.is_staff ? action.payload.is_staff : false
       state.userError = null
     })
     .addCase(getUser.rejected, state => {
