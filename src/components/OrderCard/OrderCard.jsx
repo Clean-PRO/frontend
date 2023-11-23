@@ -75,12 +75,12 @@ const OrderCard = ({ order }) => {
         <div className="card__control">
           {isDetailed ? (
             <button className="card__control-btn card__control-btn_more" onClick={toggleInfo}>
-              <img src={up} alt="Стрелка, направленная вверх" />
+              <img src={up} className="card__arrow" alt="Стрелка, направленная вверх" />
               Скрыть
             </button>
           ) : (
             <button className="card__control-btn card__control-btn_more" onClick={toggleInfo}>
-              <img src={down} alt="Стрелка, направленная вниз" />
+              <img src={down} className="card__arrow" alt="Стрелка, направленная вниз" />
               Посмотреть подробнее
             </button>
           )}

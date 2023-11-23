@@ -62,6 +62,8 @@
 
     &-image {
       margin-right: 0.8rem;
+      height: 20px;
+      width: 20px;
     }
 
     &-text {
@@ -151,5 +153,9 @@
         margin-right: 0.8rem;
       }
     }
+  }
+  &__arrow {
+    width: 24px;
+    height: 24px;
   }
 }
