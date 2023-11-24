@@ -27,7 +27,7 @@ const AuthModal = ({ show, closeModal, code, requestCode }) => {
         clearInterval(interval)
         setIsError(false)
       }
-    }, 1100)
+    }, 1000)
   }, [seconds])
 
   useEffect(() => {
