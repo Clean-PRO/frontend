@@ -17,11 +17,7 @@ function OfficeAdmin() {
   const [visibleFieldFilters, setVisibleFieldFilters] = useState(false)
 
   function handleToggleClick() {
-    if (visibleFieldFilters === false) {
-      setVisibleFieldFilters(true)
-    } else {
-      setVisibleFieldFilters(false)
-    }
+    setVisibleFieldFilters(filters => !filters)
   }
 
   return (
@@ -46,7 +42,7 @@ function OfficeAdmin() {
             </div>
             <UploadButton text="Выгрузить данные" />
           </div>
-          <Filters stateVisible={visibleFieldFilters} />
+          {visibleFieldFilters && <Filters />}
         </form>
       </div>
       <Table />

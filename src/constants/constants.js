@@ -25,6 +25,7 @@ export const TIME_OPTIONS = [
 
 export const API_URL = {
   AUTH: '/auth/token/',
+  OAUTH_GITHUB: '/oauth/login/github/',
   USERS: '/users/',
   ORDERS: '/orders/',
   SERVICES: '/services/',

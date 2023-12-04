@@ -1,0 +1,23 @@
+@import '../../assets/styles/colors.scss';
+
+.card-service {
+  background-color: $background-color-main;
+  border-radius: 0.8rem;
+  margin: 1.2rem 0 0 0;
+  border: 2px solid $background-color-main;
+  transition: all 0.2s ease;
+
+  &__img {
+    width: 9.4rem;
+    height: 6rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+  }
+
+  &__edit {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 0 0 3.6rem;
+    cursor: pointer;
+  }
+}

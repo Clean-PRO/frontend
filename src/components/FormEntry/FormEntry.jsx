@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { PATTERNS } from '../../utils/validation'
 import Popup from '../Popup/Popup'
 import { resetSignInError, resetSignUpError } from '../../store/auth/authSlice'
+import authAPI from '../../api/authAPI'
 
 const defaults = {
   email: '',
@@ -35,6 +36,13 @@ function FormEntry() {
     mode: 'onSubmit',
     defaultValues: defaults,
   })
+
+  function handleOAuth() {
+    authAPI
+      .oauth()
+      .then(data => data.json())
+      .then(data => console.log(data))
+  }
 
   const handleEntry = () => dispatch(handleClickEntry())
   const handleRecovery = () => dispatch(handleClickRecovery())
@@ -151,14 +159,17 @@ function FormEntry() {
             </p>
           )}
           {viewForm === 'entry' && (
-            <p
-              onClick={() => {
-                handleRecovery()
-                clearErrors()
-              }}
-              className="form-entry__password-recovery">
-              Забыли пароль?
-            </p>
+            <>
+              <Button buttonText="Войти через Github" buttonClassName="button__github" onClick={handleOAuth} />
+              <p
+                onClick={() => {
+                  handleRecovery()
+                  clearErrors()
+                }}
+                className="form-entry__password-recovery">
+                Забыли пароль?
+              </p>
+            </>
           )}
           {viewForm === 'recovery' && (
             <>

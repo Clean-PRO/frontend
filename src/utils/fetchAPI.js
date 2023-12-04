@@ -85,3 +85,5 @@ const baseFetch = async (url, method, options = {}) => {
 }
 
 export default new FetchAPI(BASE_URL)
+
+export const oauthFetch = new FetchAPI('http://localhost/oauth/')
