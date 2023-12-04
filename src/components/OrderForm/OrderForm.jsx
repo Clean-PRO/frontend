@@ -122,6 +122,8 @@ function OrderForm() {
       cleaning_time,
       comment,
     } = data
+
+    const services = extra.filter(item => item.amount > 0).map(item => ({ id: item.id, amount: item.amount }))
     const body = {
       user: { username, email, phone },
       address: { city, street, house, apartment, entrance, floor },
@@ -129,23 +131,19 @@ function OrderForm() {
       cleaning_date,
       cleaning_time,
       comment,
+      total_sum: total,
+      cleaning_type: cleaningType,
+      services,
+      rooms_number: rooms,
+      bathrooms_number: toilets,
     }
-
     dispatch(safeOrderForm(body))
 
     if (isAuth) {
-      const services = extra.filter(item => item.amount > 0).map(item => ({ id: item.id, amount: item.amount }))
-      const data = {
-        ...body,
-        total_sum: total,
-        cleaning_type: cleaningType,
-        services,
-        total_time: 3,
-        rooms_number: rooms,
-        bathrooms_number: toilets,
-      }
-      dispatch(createOrder(data))
-      navigate(ROUTES.PAYMENT)
+      dispatch(createOrder(body))
+        .unwrap()
+        .then(() => navigate(ROUTES.PAYMENT))
+        .catch(() => console.log('Order was not created'))
     } else {
       setShowAuthModal(true)
       openConfirmEmail(email)
@@ -160,7 +158,7 @@ function OrderForm() {
   return (
     <>
       <AuthModal show={showAuthModal} closeModal={setShowAuthModal} code={code} requestCode={requestCode} />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="form__order" onSubmit={handleSubmit(onSubmit)}>
         {/* -------------------------------------USERNAME--------------------------------- */}
         <InputField
           isValid={!errors?.username}

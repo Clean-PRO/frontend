@@ -1,10 +1,10 @@
-import { handleClickCliners, handleClickSchedule } from '../store/admin/adminSlice'
+import { handleClickCleaners, handleClickSchedule } from '../store/admin/adminSlice'
 
 export const headings = [
   {
     id: 1,
     title: 'Клинеры',
-    handleClick: handleClickCliners(),
+    handleClick: handleClickCleaners(),
     handleTab: 'cliners',
   },
   {

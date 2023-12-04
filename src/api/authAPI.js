@@ -1,9 +1,12 @@
-import FetchAPI from '../utils/fetchAPI'
+import FetchAPI, { oauthFetch } from '../utils/fetchAPI'
 import { API_URL } from '../constants/constants'
 
 class AuthAPI {
   auth(body) {
     return FetchAPI.post(`${API_URL.AUTH}login/`, { body })
+  }
+  oauth() {
+    return oauthFetch.get(`login/github/`)
   }
 
   logout(token) {

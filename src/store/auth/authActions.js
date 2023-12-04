@@ -54,3 +54,12 @@ export const registration = createAsyncThunk('auth/signup', async (body, { dispa
     return rejectWithValue(e)
   }
 })
+
+export const oauth = createAsyncThunk('auth/oauth', async (_, { rejectWithValue }) => {
+  try {
+    const res = await authAPI.getUser()
+    return res
+  } catch (e) {
+    return rejectWithValue(e)
+  }
+})
