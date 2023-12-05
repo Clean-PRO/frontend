@@ -9,6 +9,8 @@ import { getToken } from '../../../utils/tokenActions'
 import { useDispatch } from 'react-redux'
 import { getUserOrders } from '../../../store/order/orderActions'
 import ordersAPI from '../../../api/ordersAPI'
+import { customerStylesSelect } from '../../../assets/styles/customerStylesSelect'
+import { TIME_OPTIONS } from '../../../constants/constants'
 
 function TransferModal({ order, show, closeModal }) {
   const dispatch = useDispatch()
@@ -45,7 +47,7 @@ function TransferModal({ order, show, closeModal }) {
                 />
                 <div className="form-transfer__select">
                   <label>Время</label>
-                  <SelectReact time="time" />
+                  <SelectReact styles={customerStylesSelect} time="time" options={TIME_OPTIONS} />
                 </div>
               </div>
               <Button buttonText="Перенести" buttonClassName="button button__modal-indent" />

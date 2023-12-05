@@ -18,11 +18,7 @@ function OfficeAdmin() {
 
   const [visibleFieldFilters, setVisibleFieldFilters] = useState(false)
   function handleToggleClick() {
-    if (visibleFieldFilters === false) {
-      setVisibleFieldFilters(true)
-    } else {
-      setVisibleFieldFilters(false)
-    }
+    setVisibleFieldFilters(filters => !filters)
   }
   const filter = useSelector(orderSelectors.getFiltred)
   function exportData() {

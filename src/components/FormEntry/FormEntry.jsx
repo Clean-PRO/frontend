@@ -36,6 +36,13 @@ function FormEntry() {
     defaultValues: defaults,
   })
 
+  // function handleOAuth() {
+  //   authAPI
+  //     .oauth()
+  //     .then(data => data.json())
+  //     .then(data => console.log(data))
+  // }
+
   const handleEntry = () => dispatch(handleClickEntry())
   const handleRecovery = () => dispatch(handleClickRecovery())
   const handleRegistration = () => dispatch(handleClickRegistration())
@@ -151,14 +158,17 @@ function FormEntry() {
             </p>
           )}
           {viewForm === 'entry' && (
-            <p
-              onClick={() => {
-                handleRecovery()
-                clearErrors()
-              }}
-              className="form-entry__password-recovery">
-              Забыли пароль?
-            </p>
+            <>
+              {/* <Button buttonText="Войти через Github" buttonClassName="button__github" onClick={handleOAuth} /> */}
+              <p
+                onClick={() => {
+                  handleRecovery()
+                  clearErrors()
+                }}
+                className="form-entry__password-recovery">
+                Забыли пароль?
+              </p>
+            </>
           )}
           {viewForm === 'recovery' && (
             <>

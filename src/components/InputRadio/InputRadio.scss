@@ -1,14 +1,41 @@
-.input-radio {	
-	margin: 2.4rem 0;
-	&__container {
-		margin: 2.4rem 0 0 0;
-	}
-	&__item {
-		&:not(:last-child){
-			padding: 0 0 1.6rem 0;
-		}
-	}
-	&__input {
-		margin: 0 .8rem 0 0;
-	}
+@import '../../assets/styles/GlobalStyle.scss';
+
+.input-radio {
+  margin: 2.4rem 0;
+  &__container {
+    margin: 2.4rem 0 0 0;
+  }
+  &__item {
+    &:not(:last-child) {
+      padding: 0 0 1.6rem 0;
+    }
+  }
+  &__input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    position: relative;
+    background-color: white;
+    border: 1px solid $text-color-secondary;
+    margin-right: 0.8rem;
+    top: 0.2rem;
+
+    &:checked {
+      border: 1px solid $border-color-hover;
+    }
+
+    &:checked::before {
+      content: '';
+      display: block;
+      width: 0.8rem;
+      height: 0.8rem;
+      background-color: $border-color-hover;
+      border-radius: 50%;
+      position: absolute;
+      top: 0.3rem;
+      left: 0.3rem;
+    }
+  }
 }

@@ -77,6 +77,7 @@ function CardOrder({
               <button className="card-order__close" onClick={() => setShowCancel(true)}>
                 +
               </button>
+
             </>
           )}
           {viewTab === 'completed' && (

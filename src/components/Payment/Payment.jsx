@@ -13,7 +13,6 @@ import { authSelectors } from '../../store/auth/authSelectors'
 const Payment = () => {
   // const dispatch = useDispatch()
   const navigate = useNavigate()
-  const total = useSelector(calculatorSelectors.getTotal)
   const orderData = useSelector(calculatorSelectors.getOrderForm)
   const isAuth = useSelector(authSelectors.getIsAuth)
 
@@ -29,7 +28,7 @@ const Payment = () => {
         <img src={left} alt="arrow back" />
         Назад
       </Link>
-      <Total total={total} />
+      <Total total={orderData.total_sum} />
       <div className="payment__info">
         <div className="payment__info-wrapper">
           <img src={calend} alt="" />

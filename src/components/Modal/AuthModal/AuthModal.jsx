@@ -4,7 +4,7 @@ import '../Modal.scss'
 import Button from '../../Button/Button'
 import ButtonClose from '../../ButtonClose/ButtonClose'
 import { createPortal } from 'react-dom'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../constants/constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,8 +14,29 @@ import { createOrder } from '../../../store/order/orderActions'
 const AuthModal = ({ show, closeModal, code, requestCode }) => {
   const [text, setText] = useState('')
   const [isError, setIsError] = useState(false)
+  const [isDisable, setIsDisable] = useState(true)
+  const [seconds, setSeconds] = useState(60)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const timer = useCallback(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(prev => prev - 1)
+      } else {
+        clearInterval(interval)
+        setIsError(false)
+      }
+    }, 1000)
+  }, [seconds])
+
+  useEffect(() => {
+    if (seconds === 0) {
+      clearInterval(timer())
+      setText('')
+      setSeconds(60)
+    }
+  }, [timer, seconds])
 
   const orderData = useSelector(calculatorSelectors.getOrderForm)
   const cleaningType = useSelector(calculatorSelectors.getCleanType)
@@ -35,6 +56,7 @@ const AuthModal = ({ show, closeModal, code, requestCode }) => {
   }
 
   const handleInput = evt => {
+    setIsDisable(false)
     setIsError(false)
     setText(evt.target.value)
   }
@@ -58,6 +80,15 @@ const AuthModal = ({ show, closeModal, code, requestCode }) => {
       onClose()
     } else {
       setIsError(true)
+      timer()
+    }
+  }
+
+  const handleDisable = () => {
+    if (text === false) {
+      setIsDisable(true)
+    } else {
+      setIsDisable(false)
     }
   }
 
@@ -77,20 +108,28 @@ const AuthModal = ({ show, closeModal, code, requestCode }) => {
                 value={text}
                 onChange={handleInput}
               />
-              <span className={`form-auth__error ${isError ? 'form-auth__error_active' : ''}`}>Введите верный код</span>
-              <Button
-                type="submit"
-                buttonClassName={`button button_type_auth-submit button_size_s ${isError ? 'button_disabled' : ''}`}
-                onClick={handleSubmit}
-                buttonText={'Подтвердить'}
-                disable={isError}
-              />
-              <Button
-                type="button"
-                buttonClassName={'button button_type_auth  button_size_s'}
-                onClick={repeatRequest}
-                buttonText={'Направить код повторно'}
-              />
+              {/* <span className={`form-auth__error ${isError ? 'form-auth__error_active' : ''}`}>Введите верный код</span> */}
+              {isError ? (
+                <p className="text-m-bold form-auth__timer">{`Направить код повторно через ${seconds} сек`}</p>
+              ) : (
+                <>
+                  <Button
+                    type="submit"
+                    buttonClassName={`button button_type_auth-submit button_size_s ${
+                      isDisable ? 'form-auth__button_disabled' : ''
+                    }`}
+                    onClick={handleSubmit}
+                    buttonText={'Подтвердить'}
+                    disable={handleDisable}
+                  />
+                  <Button
+                    type="button"
+                    buttonClassName={'button button_type_auth  button_size_s'}
+                    onClick={repeatRequest}
+                    buttonText={'Направить код повторно'}
+                  />
+                </>
+              )}
               <Button
                 type="button"
                 buttonClassName={'button button_type_auth'}
