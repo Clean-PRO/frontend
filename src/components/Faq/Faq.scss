@@ -1,4 +1,5 @@
 @import '../../assets/styles/GlobalStyle.scss';
+@import '../../assets/styles/colors.scss';
 
 .faq {
   max-width: 144rem;
@@ -12,6 +13,7 @@
     font-weight: 600;
     line-height: 120%; /* 4.32rem */
     letter-spacing: -0.072rem;
+    color: $text-color-main;
   }
 
   &__questions {

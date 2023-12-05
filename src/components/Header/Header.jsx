@@ -20,9 +20,9 @@ const Header = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const isAuth = useSelector(authSelectors.getIsAuth)
-  const isAdmin = false
   const [showExit, setShowExit] = useState(false)
-
+  const isAdmin = useSelector(authSelectors.getAdmin)
+  // const isAdmin = true
   return (
     <header className="header">
       <div className="header__wrapper">

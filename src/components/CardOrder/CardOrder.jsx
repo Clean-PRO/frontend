@@ -2,42 +2,82 @@ import './CardOrder.scss'
 
 import { useSelector } from 'react-redux'
 import { adminSelectors } from '../../store/admin/adminSelectors'
+import { getToken } from '../../utils/tokenActions'
 
 import AdditionalInfoAdmin from '../AdditionalInfoAdmin/AdditionalinfoAdmin'
-import ButtonAdmin from '../ButtonAdmin/ButtonAdmin'
+import { useState } from 'react'
+import CancelOrder from '../Modal/CancelOrder/CancelOrder'
+import ordersAPI from '../../api/ordersAPI'
 
-function CardOrder() {
+function CardOrder({
+  id,
+  address,
+  user,
+  cleaning_type,
+  cleaning_date,
+  cleaning_time,
+  creation_date,
+  creation_time,
+  total_sum,
+  services,
+  comment_cancel,
+}) {
+  function formatData(data) {
+    const parts = data.split('-')
+    return parts.reverse().join('.')
+  }
+
   const viewTab = useSelector(adminSelectors.getAdminTab)
-  const viewExtra = useSelector(adminSelectors.getStatusExtra)
+  const [viewExtra, setViewExtra] = useState(true)
+  const [showCancel, setShowCancel] = useState(false)
+
+  async function acceptOrder(e) {
+    e.preventDefault()
+    const token = getToken()
+    await ordersAPI.updateOrder(id, token, { order_status: 'accepted' })
+    setShowCancel(false)
+  }
+
+  const handleRemoveOrder = e => {
+    e.stopPropagation()
+    setShowCancel(!showCancel)
+  }
   return (
-    <div className="wrapper">
+    <div className="wrapper" onClick={() => setViewExtra(!viewExtra)}>
       <div className="card-order grid">
         <p className="grid__item text-s">
-          23.09.2023
+          {formatData(creation_date)}
           <br />
-          09:15
+          {creation_time.split(':', 2).join(':')}
         </p>
-        <p className="grid__item text-m-bold">#145639000</p>
-        <p className="grid__item text-m-bold">Генеральная</p>
+        <p className="grid__item text-m-bold">{id}</p>
+        <p className="grid__item text-m-bold">{cleaning_type}</p>
         <p className="grid__item text-m-bold">
-          23.09.2023
+          {formatData(cleaning_date)}
           <br />
-          12:00 - 15:00
+          {cleaning_time.split(':', 2).join(':')}
         </p>
-        <p className="grid__item text-m-bold">5900</p>
+        <p className="grid__item text-m-bold">{new Intl.NumberFormat('ru-RU').format(total_sum)}</p>
         <p className="grid__item text-m-bold">Маргарита Киселева</p>
         <div className="grid__item text-m-bold card-order__complete">
           {viewTab === 'new' && (
             <>
-              <ButtonAdmin text="Принять" />
-              <div className="card-order__close">+</div>
+              <button className="card-order__button text-m-bold" onClick={e => acceptOrder(e)}>
+                Принять
+              </button>
+              <button className="card-order__close" onClick={handleRemoveOrder}>
+                +
+              </button>
             </>
           )}
 
           {viewTab === 'current' && (
             <>
-              <ButtonAdmin text="Завершить" />
-              <div className="card-order__close">+</div>
+              <button className="card-order__button text-m-bold">Завершить</button>
+              <button className="card-order__close" onClick={() => setShowCancel(true)}>
+                +
+              </button>
+
             </>
           )}
           {viewTab === 'completed' && (
@@ -56,12 +96,13 @@ function CardOrder() {
                 <br />
                 10:00
               </p>
-              <p className="card-order__comment text-s">Не могу изменить информацию о заказе</p>
+              <p className="card-order__comment text-s">{comment_cancel}</p>
             </div>
           )}
         </div>
-        {!viewExtra && <AdditionalInfoAdmin />}
+        {!viewExtra && <AdditionalInfoAdmin address={address} user={user} services={services} />}
       </div>
+      <CancelOrder show={showCancel} closeModal={handleRemoveOrder} order={id} />
     </div>
   )
 }

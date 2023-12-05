@@ -1,14 +1,15 @@
 import './Checkbox.scss'
+import { forwardRef } from 'react'
 
-function Checkbox({ label, className }) {
+const Checkbox = forwardRef(({ value, label, onChange, ...rest }, ref) => {
   return (
-    <div className="checkbox form-group">
-      <label className={`checkbox__label ${className}`}>
-        <input className="checkbox__input" type="checkbox" />
+    <div className="checkbox">
+      <label className="checkbox__label">
+        <input className="checkbox__input" type="checkbox" onChange={onChange} ref={ref} {...rest} value={value} />
         {label}
       </label>
     </div>
   )
-}
-
+})
+Checkbox.displayName = 'Checkbox'
 export default Checkbox

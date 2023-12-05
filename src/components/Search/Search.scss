@@ -11,8 +11,7 @@
     border: none;
     padding: 1.2rem 4rem 1.2rem 1.7rem;
     width: 28.1rem;
-    border-top-left-radius: 0.8rem;
-    border-bottom-left-radius: 0.8rem;
+    border-radius: 0.8rem;
     line-height: 2.24rem;
     font-size: 1.6rem;
     &::placeholder {
@@ -31,11 +30,11 @@
   }
 
   &__button {
-    background-color: $color-primary;
     border: none;
     height: 100%;
     width: 4.2rem;
     border-top-right-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
+    background: url(../../assets/images/search.svg) no-repeat center, $color-primary;
   }
 }

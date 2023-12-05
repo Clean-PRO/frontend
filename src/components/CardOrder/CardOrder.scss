@@ -1,4 +1,8 @@
 @import '../../assets/styles/colors.scss';
+.wrapper {
+  box-sizing: border-box;
+  cursor: pointer;
+}
 
 .card-order {
   background-color: $background-color-main;
@@ -23,6 +27,8 @@
     font-size: 25px;
     color: $text-color-main;
     transform: rotate(45deg);
+    background: none;
+    border: none;
   }
 
   &__cancelled-comment {
