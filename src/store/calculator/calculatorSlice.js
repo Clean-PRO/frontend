@@ -16,6 +16,7 @@ const calculatorSlice = createSlice({
       const index = action.payload.index
       state.total += action.payload.price
       state.extra[index].amount += action.payload.step
+      console.log(state.extra[index].amount)
     },
     setExtraRepeated: (state, action) => {
       state.extra.map(ex => {

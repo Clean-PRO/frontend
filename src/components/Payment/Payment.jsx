@@ -11,14 +11,13 @@ import { ROUTES } from '../../constants/constants'
 import { authSelectors } from '../../store/auth/authSelectors'
 
 const Payment = () => {
-  // const dispatch = useDispatch()
   const navigate = useNavigate()
   const orderData = useSelector(calculatorSelectors.getOrderForm)
   const isAuth = useSelector(authSelectors.getIsAuth)
 
   function handleSubmit() {
     // TODO: подключить оплату
-    // dispatch()
+
     isAuth ? navigate(ROUTES.PROFILE) : navigate(ROUTES.HOME)
   }
 
@@ -28,7 +27,12 @@ const Payment = () => {
         <img src={left} alt="arrow back" />
         Назад
       </Link>
-      <Total total={orderData.total_sum} />
+      <Total
+        toiletsTotal={orderData.bathrooms_number}
+        roomsTotal={orderData.rooms_number}
+        total={orderData.total_sum}
+        // amount={orderData}
+      />
       <div className="payment__info">
         <div className="payment__info-wrapper">
           <img src={calend} alt="" />
