@@ -123,7 +123,9 @@ function OrderForm() {
       comment,
     } = data
 
-    const services = extra.filter(item => item.amount > 0).map(item => ({ id: item.id, amount: item.amount }))
+    const services = extra
+      .filter(item => item.amount > 0)
+      .map(item => ({ id: item.id, amount: item.amount, title: item.title }))
     const body = {
       user: { username, email, phone },
       address: { city, street, house, apartment, entrance, floor },

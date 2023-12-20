@@ -1,0 +1,9 @@
+.extra-list-total {
+	min-height: 6.6rem;
+	padding: .8rem 0 3.2rem 0;
+	
+	&__extra-item {
+		display: flex;
+		justify-content: space-between;
+	}
+}

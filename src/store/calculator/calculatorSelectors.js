@@ -7,6 +7,7 @@ const getExtras = state => state.calculator.extra
 const getTypes = state => state.calculator.types
 const getPanoramic = state => state.calculator.isPanoramic
 const getOrderForm = state => state.calculator.orderForm
+// const getExtraListTotal = state => state.calculator.extraListTotal
 
 export const calculatorSelectors = {
   getTotal,
