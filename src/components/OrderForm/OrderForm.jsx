@@ -320,6 +320,10 @@ function OrderForm() {
               placeholder="__/__/____"
               {...register('cleaning_date', {
                 required,
+                minLength: {
+                  value: 10,
+                  message: 'Максимальное количество символов 8',
+                },
               })}
             />
             {(errors?.cleaning_date || stateDate == false) && (

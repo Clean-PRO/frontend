@@ -1,6 +1,8 @@
 import { forwardRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { setIsStateDate } from '../../store/formOrderValidation/formOrderValidation'
+// Текущий год
+import { YEAR } from '../../constants/constants'
 
 const InputFieldDate = forwardRef(
   (
@@ -43,7 +45,8 @@ const InputFieldDate = forwardRef(
       const date = dateCleaning.replace(/-/g, ',').split(',').map(Number)
       const valueDate = date[2]
       const valueMonth = date[1]
-      const valueYear = date[0]
+      let valueYear = date[0]
+      valueYear !== YEAR ? (valueYear = '') : valueYear
       const currentDate = userDate[2]
       const currentMonth = userDate[1]
       const currentYear = userDate[0]

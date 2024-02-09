@@ -31,3 +31,5 @@ export const API_URL = {
   SERVICES: '/services/',
   TYPES: '/cleaning-types/',
 }
+
+export let YEAR = 2024
