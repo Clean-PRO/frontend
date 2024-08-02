@@ -1,6 +1,6 @@
 import { TOKEN_KEY } from './tokenActions'
 
-const BASE_URL = 'https://cleanpro.webtm.ru/api'
+const BASE_URL = 'https://cleanpro.sytes.net/api'
 
 const METHODS = {
   GET: 'GET',
